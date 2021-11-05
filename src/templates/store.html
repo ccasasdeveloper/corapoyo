@@ -1,0 +1,59 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}CORAPOYO STORE{% endblock %}
+{% block content %}
+  <form class="form-horizontal" action='store' method="POST">
+    <fieldset>
+      <div id="legend">
+        <legend class="">Registro store</legend>
+      </div>
+      <div class="control-group">
+        <!-- name -->
+        <label class="control-label"  for="number">Numero</label>
+        <div class="controls">
+          <input type="text" id="number" name="number" placeholder="Numero" class="input-xlarge">
+          <p class="help-block">Number can contain any numbers, without spaces</p>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <!-- name -->
+        <label class="control-label"  for="code">Codigo</label>
+        <div class="controls">
+          <input type="text" id="code" name="code" placeholder="Codigo" class="input-xlarge">
+          <p class="help-block">Code can contain any letters or numbers, without spaces</p>
+        </div>
+      </div>
+      {% if squares %}
+      <div class="control-group"></div>
+        <!-- Phone-->
+        <label class="control-label" for="square_id">Plaza</label>
+        <div class="controls">
+          <select name="square_id">
+            {% for square in squares %}
+            <option  value="{{ square.id }}">{{ square.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      {% endif %}
+      <div class="control-group">
+        <!-- Button -->
+        <div class="controls">
+          <button class="btn btn-success" >Register</button>
+
+        </div>
+      </div>
+      
+
+    </fieldset>
+    
+
+  </form>
+
+{% endblock %}
+
+{% block srcipts %}
+{{ super() }}
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}CORAPOYO SQUARE{% endblock %}
+{% block content %}
+  <form class="form-horizontal" action='role' method="POST">
+    <fieldset>
+      <div id="legend">
+        <legend class="">Registro role</legend>
+      </div>
+      <div class="control-group">
+        <!-- name -->
+        <label class="control-label"  for="name">Nombre</label>
+        <div class="controls">
+          <input type="text" id="name" name="name" placeholder="Nombre" class="input-xlarge">
+          <p class="help-block">Name can contain any letters or numbers, without spaces</p>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <!-- name -->
+        <label class="control-label"  for="code">Codigo</label>
+        <div class="controls">
+          <input type="text" id="code" name="code" placeholder="Codigo" class="input-xlarge">
+          <p class="help-block">Code can contain any letters or numbers, without spaces</p>
+        </div>
+      </div>
+      
+
+      <div class="control-group">
+        <!-- Button -->
+        <div class="controls">
+          <button class="btn btn-success" >Register</button>
+
+        </div>
+      </div>
+    </fieldset>
+  </form>
+{% endblock %}
+
+{% block srcipts %}
+{{ super() }}
+
+{% endblock %}
