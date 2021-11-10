@@ -22,7 +22,7 @@ class Partner(db.Base):
     email = Column(String, nullable=True)
     username = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    phone = Column(Integer)
+    phone = Column(String, nullable=False)
     role_id = Column(Integer, ForeignKey('role.id'))
     
 class Product(db.Base):

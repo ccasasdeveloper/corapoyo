@@ -110,26 +110,18 @@ def create_partner():
         form = request.form
         print(form)
         print('for here 02')
-        print(form['name'])
-        print(form['last_name'])
-        print(form['email'])
-        print(form['username'])
-        print(form['password'])
-        print(form['phone'])
-        print(form['role_id'])
         partner = Partner(
         name=str(form['name']),
         last_name=str(form['last_name']), 
         email=str(form['email']), 
         username=str(form['username']), 
         password=str(form['password']), 
-        phone=int(form['phone']), 
+        phone=str(form['phone']), 
         role_id=int(form['role_id'])
     )
     print('for here 2')
     db.session.add(partner)
     db.session.commit()
-    print('for here 3')
     print(partner.id)
     """partner = Partner(
         name=str(request.json['name']),
@@ -190,11 +182,10 @@ def create_role():
     if request.method == 'POST':
         form = request.form
         print('for here 02')
-        print(form['code'])
-        print(form['name'])
         role = Role(
-        code=str(form['code']),
-        name=str(form['name'])
+        name=str(form['name']),
+        code=str(form['code'])
+        
     )
     print('for here 2')
     db.session.add(role)
@@ -249,12 +240,10 @@ def get_products():
 def create_product():
     if request.method == 'POST':
         form = request.form
-        print('for here 02')
-        print(form['code'])
-        print(form['name'])
         product = Product(
-        code=str(form['code']),
         name=str(form['name']),
+        code=str(form['code']),
+        price=float(form['price'])
     )
     print('for here 2')
     db.session.add(product)

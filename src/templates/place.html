@@ -1,45 +1,70 @@
 {% extends "bootstrap/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-{% block title %}CORAPOYO place{% endblock %}
+{% block head %}
+
+{% block title %}CORAPOYO PLACE {% endblock %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+{% endblock %}
 {% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="{{ url_for('register_role') }}">Role <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="{{ url_for('register') }}">Registro asociado  </a> 
+      <a class="nav-item nav-link" href="{{ url_for('register_square') }}">Registro plaza</a>
+      <a class="nav-item nav-link" href="{{ url_for('register_store') }}">Registro bodega</a>
+      <a class="nav-item nav-link" href="{{ url_for('register_place') }}">Registro puesto</a>
+      <a class="nav-item nav-link" href="{{ url_for('register_product') }}">Registro producto</a>
+      <a class="nav-item nav-link disabled" href="#">Disabled</a>
+    </div>
+  </div>
+</nav>
+  
   <form class="form-horizontal" action='place' method="POST">
     <fieldset>
-      <div id="legend">
-        <legend class="">Place</legend>
-      </div>
-      <div class="control-group">
-        <!-- store -->
-        <label class="control-label"  for="name">Puesto</label>
-        <div class="controls">
-          <input type="text" id="name" name="name" placeholder="Puesto" class="input-xlarge">
-          <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+    <div class="container"><br>
+      <div class="row align-items-center justify-content-center">
+      <div class="col-md-4">
+        <div id="legend">
+          <legend class="">Registro place</legend>
         </div>
-      </div>
-
-   
-       <!--<div class="control-group">
-        Password 
-        <label class="control-label"  for="password_confirm">Password (Confirm)</label>
-        <div class="controls">
-          <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
-          <p class="help-block">Please confirm password</p>
+        <div class="control-group">
+          <!-- store -->
+          <label class="control-label"  for="name">Puesto</label>
+          <div class="controls">
+            <input type="text" id="name" name="name" placeholder="Puesto" class="input-xlarge">
+            <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+          </div>
+        </div> 
+  
+        <div class="control-group">
+          <!-- name -->
+          <label class="control-label"  for="code">Codigo</label>
+          <div class="controls">
+            <input type="text" id="code" name="code" placeholder="Codigo" class="input-xlarge">
+            <p class="help-block">Code can contain any letters or numbers, without spaces</p>
+          </div>
         </div>
-      </div>-->
-      
-      {% if partners %}
-      <div class="control-group"></div>
-        <!-- Phone-->
-        <label class="control-label" for="partner_id">Asociado</label>
-        <div class="controls">
-          <select name="partner_id">
-            {% for partner in partners %}
-            <option  value="{{ partner.id }}">{{ partner.name }}</option>
-            {% endfor%}
-          </select>
-        </div>
-      </div>
-      {% endif %}
-      {% if products %}
+          
+          
+          {% if partners %}
+          <div class="control-group"></div>
+            <!-- Phone-->
+            <label class="control-label" for="partner_id">Asociado</label>
+            <div class="controls">
+              <select name="partner_id">
+                {% for partner in partners %}
+                <option  value="{{ partner.id }}">{{ partner.name }}</option>
+                {% endfor%}
+              </select>
+            </div>
+          {% endif %}
+          <br>
+        {% if products %}
       <div class="control-group"></div>
         <!-- Phone-->
         <label class="control-label" for="product_id">Producto 1</label>
@@ -50,10 +75,78 @@
             {% endfor%}
           </select>
         </div>
+        <div class="control-group"></div>
+        
+        <label class="control-label" for="product_two_id">Producto 1</label>
+        <div class="controls">
+          <select name="product_two_id">
+            {% for product in products %}
+            <option  value="{{ product.id }}">{{ product.name }}</option>
+            {% endfor%}
+          </select>
+        </div>
       </div>
+       
+      {% endif %}
 
+      {% if stores %}
+      <div class="control-group"></div>
+       
+        <label class="control-label" for="store_id">Bodega</label>
+        <div class="controls">
+          <select name="store_id">
+            {% for store in stores %}
+            <option  value="{{ store.id }}">{{ store.number }}</option>
+            {% endfor%}
+          </select>
+        </div>
+      </div> 
+      {% endif %}
+      {% if products %}
       <div class="control-group"></div>
         <!-- Phone-->
+        <label class="control-label" for="product_three_id">Producto 1</label>
+        <div class="controls">
+          <select name="product_three_id">
+            {% for product in products %}
+            <option  value="{{ product.id }}">{{ product.name }}</option>
+            {% endfor%}
+          </select>
+        </div>
+        {% endif %}
+      </div>
+      <br>
+      
+      
+    
+    										   
+      <br>
+
+          <center>
+            <div class="control-group">
+          <!-- Button -->
+          <div class="controls">
+            <button class="btn btn-success">Register</button>
+          </div>
+          </center>
+        </form>
+  
+        <br>
+  
+          
+      </div>
+      <br>
+      </div>
+      </div>
+    </fieldset>
+  
+  </form>
+
+  <!--<a href="{{ url_for('create_partner') }}">Creditos </a>-->
+{% endblock %}
+<!-- 
+<div class="control-group"></div>
+        
         <label class="control-label" for="product_two_id">Producto 1</label>
         <div class="controls">
           <select name="product_two_id">
@@ -65,7 +158,7 @@
       </div> 
       
       <div class="control-group"></div>
-        <!-- Phone-->
+        
         <label class="control-label" for="product_three_id">Producto 1</label>
         <div class="controls">
           <select name="product_three_id">
@@ -75,10 +168,14 @@
           </select>
         </div>
       </div> 
-      {% endif %}
-      {% if stores %}
+      
+
+
+
+
+ {% if stores %}
       <div class="control-group"></div>
-        <!-- Phone-->
+       
         <label class="control-label" for="store_id">Bodega</label>
         <div class="controls">
           <select name="store_id">
@@ -88,26 +185,6 @@
           </select>
         </div>
       </div> 
-      {% endif %}
-      <div class="control-group">
-        <!-- Button -->
-        <div class="controls">
-          <button class="btn btn-success" >Register</button>
+      {% endif %}     
 
-        </div>
-      </div>
-      
-
-    </fieldset>
-    
-
-  </form>
-
-
-  <!--<a href="{{ url_for('create_partner') }}">Creditos </a>-->
-{% endblock %}
-
-{% block srcipts %}
-{{ super() }}
-
-{% endblock %}
+-->
