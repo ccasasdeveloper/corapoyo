@@ -1,0 +1,11 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+
+{{clustermap.js}}
+{% endblock %}
+{% block content %}
+{{clustermap.html}}
+
+  <!--<a href="{{ url_for('create_partner') }}">Creditos </a>-->
+{% endblock %}

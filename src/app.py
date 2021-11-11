@@ -8,13 +8,23 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 import bigdatacloudapi
 import json 
+import requests
+from flask_googlemaps import GoogleMaps
+from flask_googlemaps import Map
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:123456@localhost:5432/corapoyodb"
+app.config['GOOGLEMAPS_KEY'] = "AIzaSyCzMTiovnfjwuc7imN6qCDXoEbPO4-q_XU"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 Bootstrap(app)
+GoogleMaps(app)
+
+@app.route("/mapview")
+def mapview():
+    
+    return render_template('example.html')
 
 @app.route("/")
 def index():
@@ -37,6 +47,17 @@ def index():
     db.session.commit()
     print(post.id)"""
     return render_template('index.html')
+
+#Hee map stars
+@app.route("/map")
+def map():
+    #answ = requests.get('https://maps.googleapis.com/maps/api/js?key=AIzaSyCzMTiovnfjwuc7imN6qCDXoEbPO4-q_XU&callback=initMap&v=weekly')
+    #print(answ)
+    #roles = get_roles()
+    #json_object.append(jsonify(rol))
+    #print(json_object)
+    return render_template('map.html')
+
 #Here add routers to forms   
 #Here register routes starts
 
