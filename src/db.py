@@ -5,7 +5,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__)
 
 
 engine = create_engine('postgresql://postgres:123456@localhost:5432/corapoyodb')
