@@ -56,7 +56,7 @@ class Place(db.Base):
     latitude = Column(String, nullable=True)
     longitude = Column(String, nullable=True)
     store_id = Column(Integer, ForeignKey('store.id'))
-    geolocation = Column(JSONB)
+    geolocation = Column(JSONB, nullable=True )
 
 class Post(db.Base):
     __tablename__ = 'post'

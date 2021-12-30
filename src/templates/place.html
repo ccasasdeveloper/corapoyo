@@ -3,7 +3,16 @@
 {% block head %}
 
 {% block title %}CORAPOYO PLACE {% endblock %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity=	"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<style>
+		#map {
+		height: 500px;
+		width: 100%;
+	}
+	</style>
 {% endblock %}
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,9 +32,39 @@
     </div>
   </div>
 </nav>
+  <div class="card">
+		  <div class="card-body">
+			<h5 class="card-title">Información de geolocalización</h5>
+			<p class="card-text" id="coords" >Latitud y longitud</p>
+			<button class="btn btn-primary" onclick="iniciarMap()">Mostrar ubicación</button>
+			
+		  </div>
   
   <form class="form-horizontal" action='place' method="POST">
-    <fieldset>
+  
+  
+  <div class="card">
+  <div class="card-body">
+    <h1 class="card-title mb-5 text-center">GEOLOCALIZACIÓN</h5>
+    
+	<div class="row">
+	  <div class="col-sm-6">
+		<div class="card">
+		  <div class="card-body">
+			<div id="map" class="p-3 mb-2 bg-secondary text-white text-center"><h2 class="position-absolute top-50 start-50 translate-middle">Clic para cargar el mapa</h2></div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="col-sm-6">
+		
+		</div>
+		<div class="card">
+		  <div class="card-body">
+			<h5 class="card-title">Almacenar Data</h5>
+			<p class="card-text" id="coords" >Latitud y longitud</p>
+			
+			
+			<fieldset>
     <div class="container"><br>
       <div class="row align-items-center justify-content-center">
       <div class="col-md-4">
@@ -36,7 +75,7 @@
           <!-- store -->
           <label class="control-label"  for="name">Puesto</label>
           <div class="controls">
-            <input type="text" id="name" name="name" placeholder="Puesto" class="input-xlarge">
+            <input type="text" id="name" name="name" placeholder="Puesto" class="form-control input-xlarge">
             <p class="help-block">Username can contain any letters or numbers, without spaces</p>
           </div>
         </div> 
@@ -45,7 +84,7 @@
           <!-- name -->
           <label class="control-label"  for="code">Codigo</label>
           <div class="controls">
-            <input type="text" id="code" name="code" placeholder="Codigo" class="input-xlarge">
+            <input type="text" id="code" name="code" placeholder="Codigo" class="form-control input-xlarge">
             <p class="help-block">Code can contain any letters or numbers, without spaces</p>
           </div>
         </div>
@@ -56,7 +95,7 @@
             <!-- Phone-->
             <label class="control-label" for="partner_id">Asociado</label>
             <div class="controls">
-              <select name="partner_id">
+              <select class="form-control" name="partner_id">
                 {% for partner in partners %}
                 <option  value="{{ partner.id }}">{{ partner.name }}</option>
                 {% endfor%}
@@ -69,7 +108,7 @@
         <!-- Phone-->
         <label class="control-label" for="product_id">Producto 1</label>
         <div class="controls">
-          <select name="product_id">
+          <select class="form-control" name="product_id">
             {% for product in products %}
             <option  value="{{ product.id }}">{{ product.name }}</option>
             {% endfor%}
@@ -79,7 +118,7 @@
         
         <label class="control-label" for="product_two_id">Producto 1</label>
         <div class="controls">
-          <select name="product_two_id">
+          <select class="form-control" name="product_two_id">
             {% for product in products %}
             <option  value="{{ product.id }}">{{ product.name }}</option>
             {% endfor%}
@@ -94,7 +133,7 @@
        
         <label class="control-label" for="store_id">Bodega</label>
         <div class="controls">
-          <select name="store_id">
+          <select class="form-control" name="store_id">
             {% for store in stores %}
             <option  value="{{ store.id }}">{{ store.number }}</option>
             {% endfor%}
@@ -107,7 +146,7 @@
         <!-- Phone-->
         <label class="control-label" for="product_three_id">Producto 1</label>
         <div class="controls">
-          <select name="product_three_id">
+          <select class="form-control" name="product_three_id">
             {% for product in products %}
             <option  value="{{ product.id }}">{{ product.name }}</option>
             {% endfor%}
@@ -117,7 +156,22 @@
       </div>
       <br>
       
-      
+      <div class="row gy-2 gx-3 align-items-center">
+			<div class="col-auto">
+				<label class="visually-hidden" for="almcLati">Latitud</label>
+				<div class="input-group">
+				  <div class="input-group-text">Latitud</div>
+				  <input type="text" class="form-control" id="almcLati" name="almcLati" placeholder="Latitud">
+				</div>
+			  </div>
+			  <div class="col-auto">
+				<label class="visually-hidden" for="almcLong">Longitud</label>
+				<div class="input-group">
+				  <div class="input-group-text">Longitud</div>
+				  <input type="text" class="form-control" id="almcLong" name="almcLong" placeholder="Longitud">
+				</div>
+			  </div>
+			</div>
     
     										   
       <br>
@@ -129,18 +183,84 @@
             <button class="btn btn-success">Register</button>
           </div>
           </center>
-        </form>
   
         <br>
   
           
       </div>
       <br>
-      </div>
-      </div>
     </fieldset>
+			
+			
+			
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+  </div>
+</div>
+  
+  
+    
   
   </form>
+  
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiISlMvvS9NG0bjqngZO6Teg8O77qoyc8"></script>
+
+
+<script>
+function iniciarMap(){
+
+	var output = document.getElementById('map');
+	var outputC = document.getElementById('coords');
+
+			// Verificar si soporta geolocalizacion
+			if (navigator.geolocation) {
+				output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
+			}else{
+				output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
+			}
+
+			//Obtener latitud y longitud
+			function localizacion(posicion){
+
+				var latitude = posicion.coords.latitude;
+				var longitude = posicion.coords.longitude;
+
+
+				outputC.innerHTML = "<p>Latitud: " +latitude+"<br>Longitud: "+longitude+"</p>";
+				
+				document.getElementById("almcLati").value = latitude;
+				document.getElementById("almcLong").value = longitude;
+				
+				
+				var coord = {lat:latitude ,lng: longitude};
+				var map = new google.maps.Map(document.getElementById('map'),{
+				  zoom: 18,
+				  center: coord
+				});
+				var marker = new google.maps.Marker({
+				  position: coord,
+				  map: map
+				});
+
+			}
+
+			function error(){
+				output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
+
+			}
+
+			navigator.geolocation.getCurrentPosition(localizacion,error);
+	
+	
+}
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
   <!--<a href="{{ url_for('create_partner') }}">Creditos </a>-->
 {% endblock %}

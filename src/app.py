@@ -184,7 +184,7 @@ def update_partner(id):
 # Here partner finished
 # here role starts
 
-@app.route("/roles", methods=['GET'])
+@app.route("/roles", methods=['GET']) 
 def get_roles():
     roles = db.session.query(Role).all()
     print(roles)
@@ -331,17 +331,20 @@ def create_place():
     print(type(json.dumps(resultObject)))
     if request.method == 'POST':
         form = request.form
+        print('yes')
         place = Place(
         name=str(form['name']),
         partner_id=int(form['partner_id']),
         product_id=int(form['product_id']),
         product_two_id=int(form['product_two_id']),
         product_three_id=int(form['product_three_id']),
-        latitude = str(latitude),
-        longitude = str(longitude),
+
+        latitude = str(form['almcLati']),
+        longitude = str(form['almcLong']),
         store_id=int(form['store_id']),
-        geolocation = json.dumps(resultObject)
+        #geolocation = json.dumps(resultObject)
     )
+    print('hello Carlos')
     print('for here 2')
     print(place)
     db.session.add(place)
@@ -444,6 +447,8 @@ def get_squares():
     if squares:
         return squares
     return
+
+
 
 @app.route("/register/square", methods=['POST'])
 def create_square():
