@@ -62,7 +62,7 @@ class Post(db.Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True)
     post = Column(String, nullable=True)
-    date_added = Column(DateTime)
+    date_added = Column(String, nullable=True)
     place_id = Column(Integer, ForeignKey('place.id'))
     product_id = Column(Integer, ForeignKey('product.id'))
     price = Column(Float, nullable=True)

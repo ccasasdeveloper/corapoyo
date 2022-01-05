@@ -2,6 +2,7 @@ import db
 from models import *
 #import request
 import datetime
+from datetime import datetime
 from flask import Flask, render_template, jsonify, request
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -103,6 +104,15 @@ def register_role():
     #json_object.append(jsonify(rol))
     #print(json_object)
     return render_template('role.html')
+
+@app.route("/post")
+def register_post():
+    print('hello hello')
+    #json_object.append(jsonify(rol))
+    #print(json_object)
+    products = get_products()
+    places = get_places()
+    return render_template('post.html', products=products, places=places)
 
 
 #Here register finished
@@ -406,10 +416,27 @@ def get_posts():
 
 @app.route("/post", methods=['POST'])
 def create_post():
+    if request.method == 'POST':
+        now = datetime.now()
+        date_now = now.strftime("%m/%d/%Y, %H:%M:%S")
+        form = request.form
+        post = Post(
+        post=str(form['post']),
+        date_added=str(date_now),
+        place_id=int(form['place_id']),
+        product_id=int(form['product_id']),
+        price=float(form['price'])
+    )
+    print('for here 2')
+    db.session.add(post)
+    db.session.commit()
+    print('for here 3')
+    print(post.id)
     """partner = Partner(name='Firstusername')
     db.session.add(partner)
     db.session.commit()
     print(partner.id)"""
+
     return "<p> Succesfully </p>"
 
 @app.route("/post/<id>", methods=['GET'])
