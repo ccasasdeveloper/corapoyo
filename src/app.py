@@ -24,25 +24,13 @@ Bootstrap(app)
 
 @app.route("/")
 def index():
-    """role= Role(name='Firstrole', code='123456asdfgg')
-    db.session.add(role)
-    db.session.commit()
-    print(role.id)
-    partner = Partner(name='Firstname', last_name='FirstlastName', email='algo7@algo.com', username='user7', password='password', phone=1234567, role_id=role.id)
-    db.session.add(partner)
-    db.session.commit()
-    print(partner.id)
-    product = Product(name='Firstproduct', code='123456asdfgg', price=10.0)
-    db.session.add(product)
-    db.session.commit()
-    place = Place(store='12', name='112', partner_id=partner.id, product_id=product.id, product_two_id=product.id, product_three_id=product.id)
-    db.session.add(place)
-    db.session.commit()
-    post = Post(post='This is a post', date_added=datetime.datetime.utcnow, place_id=place.id, product_id=product.id)
-    db.session.add(post)
-    db.session.commit()
-    print(post.id)"""
+    print('hello hello')
     return render_template('index.html')
+
+@app.route("/signup")
+def signup():
+    print('hello hello')
+    return render_template('signup.html')
 
 #Hee map stars
 """@app.route("/map")

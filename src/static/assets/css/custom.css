@@ -1,0 +1,71 @@
+.form-group {
+    margin-bottom: 15px;
+    display: block;
+}
+.form-group input {
+    height: 55px;
+    line-height: 55px;
+    width: 100%;
+    border: 1px solid #e6e2f5;
+    padding: 0 20px;
+    color: #333;
+    border-radius: 0;
+    font-weight: 400;
+    border-radius: 5px;
+}
+
+.form-group select {
+    height: 55px;
+    line-height: 55px;
+    width: 100%;
+    border: 1px solid #e6e2f5;
+    padding: 0 20px;
+    color: #333;
+    border-radius: 0;
+    font-weight: 400;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    height: 180px;
+    width: 100%;
+    border: 1px solid #e6e2f5;
+    padding: 15px 20px;
+    color: #333;
+    border-radius: 0;
+    resize: none;
+    font-weight: 400;
+    border-radius: 5px;
+}
+
+.cat-head {
+    padding: 35px 50px;
+    padding-top: 35px;
+    padding-right: 50px;
+    padding-bottom: 35px;
+    padding-left: 50px;
+    background-color: #fff;
+    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -webkit-box-shadow: 0 1rem 3rem rgb(35 38 45 / 15%) !important;
+    box-shadow: 0 1rem 3rem rgb(35 38 45 / 15%) !important;
+}
+
+label {
+	color:black;
+	margin-bottom:6px;
+	font-size:bold;	
+}
+
+.help-block{
+	margin-top:1px;
+	font-size:12px;	
+}
+
+#map {
+	height: 500px;
+	width: 100%;
+}
