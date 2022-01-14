@@ -58,6 +58,17 @@ class Place(db.Base):
     store_id = Column(Integer, ForeignKey('store.id'))
     geolocation = Column(JSONB, nullable=True )
 
+class Udm(db.Base):
+    __tablename__ = 'udm'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=True)
+
+class ProductQualificationOffer(db.Base):
+    __tablename__ = 'product_qualification_offer'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=True)
+    qualification = Column(Integer)
+
 class Post(db.Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True)
@@ -66,7 +77,17 @@ class Post(db.Base):
     place_id = Column(Integer, ForeignKey('place.id'))
     product_id = Column(Integer, ForeignKey('product.id'))
     price = Column(Float, nullable=True)
+    cut_date_added = Column(String, nullable=True)
+    udm_name = Column(String, nullable=True)
+    product_qualification_name = Column(String, nullable=True)
+    place_name = Column(String, nullable=True)
+    place_latitude = Column(String, nullable=True)
+    place_longitude = Column(String, nullable=True)
+    product_name = Column(String, nullable=True)
+    udm_id = Column(Integer, ForeignKey('udm.id'))
+    product_qualification_id =  Column(Integer, ForeignKey('product_qualification_offer.id'))
 
+ 
     """def __init__(self, nombre, precio):
         self.nombre = nombre
         self.precio = precio

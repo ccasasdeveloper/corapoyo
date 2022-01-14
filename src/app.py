@@ -1,3 +1,6 @@
+from sqlalchemy.orm import session
+from sqlalchemy.orm import Session
+from sqlalchemy import select
 import db
 from models import *
 #import request
@@ -10,11 +13,13 @@ from flask_bootstrap import Bootstrap
 import bigdatacloudapi
 import json 
 import requests
+from sqlalchemy import create_engine
 
 
 app = Flask(__name__)
+engine = create_engine('postgresql://postgres:123456@localhost:5432/corapoyodb')
+session = Session(engine, future=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:123456@localhost:5432/corapoyodb"
-
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 Bootstrap(app)
@@ -26,11 +31,50 @@ Bootstrap(app)
 def index():
     print('hello hello')
     return render_template('index.html')
+    
 
 @app.route("/signup")
 def signup():
     print('hello hello')
     return render_template('signup.html')
+
+
+#login and profile
+
+@app.route("/login", methods=['POST'])
+def login():
+    print('for here 00000')
+    if request.method == 'POST':
+        form = request.form
+        print('for here 111')
+        statement = select(Partner).filter_by(email=form['email'], password=form['password'])
+        result = session.execute(statement).scalars().all()
+        if result:
+            partner = result[0]
+            products = get_products()
+            statement_two = select(Place).filter_by(partner_id=partner.id)
+            places = session.execute(statement_two).scalars().all()
+            udms = db.session.query(Udm).all()
+            product_qualification_offers = db.session.query(ProductQualificationOffer).all()
+            print(udms)
+            print(product_qualification_offers)
+            now = datetime.now()
+            date_now = now.strftime("%m/%d/%Y")
+            statement_three = select(Post).filter_by(cut_date_added=date_now)
+            posts = session.execute(statement_three).scalars().all()
+            print(posts)
+            print(len(posts))
+            #place = session.query(Place).filter(partner_id=18).first()
+            #place = place_list[0]
+        print('It is passing for here')
+        #partner =  Partner.query.filter((Partner.username == form['email']) & (Partner.username == form['password'])).first()
+        if result:
+            return render_template('profile.html', partner=partner, places=places, products=products, udms=udms, product_qualification_offers=product_qualification_offers, posts=posts, date_now=date_now)
+        return "<h1> La contraseña o correo se encuentran errados, por favor revisalos. </h1>"
+
+
+# Finish login and profile
+    
 
 #Hee map stars
 """@app.route("/map")
@@ -56,7 +100,7 @@ def register():
 @app.route("/place")
 def register_place():
     print('hello hello')
-    partners = get_roles()
+    partners = get_partners()
     products = get_products()
     stores = get_stores()
     #json_object.append(jsonify(rol))
@@ -407,13 +451,27 @@ def create_post():
     if request.method == 'POST':
         now = datetime.now()
         date_now = now.strftime("%m/%d/%Y, %H:%M:%S")
+        date_now_cut = now.strftime("%m/%d/%Y")
         form = request.form
+        udm_object = db.session.query(Udm).get(form['udm_id'])
+        product_qualification_object = db.session.query(ProductQualificationOffer).get(form['product_qualification_id'])
+        place_object = db.session.query(Place).get(form['place_id'])
+        product_object = db.session.query(Product).get(form['product_id'])
         post = Post(
         post=str(form['post']),
         date_added=str(date_now),
         place_id=int(form['place_id']),
         product_id=int(form['product_id']),
-        price=float(form['price'])
+        price=float(form['price']),
+        cut_date_added = str(date_now_cut),
+        udm_name = udm_object.name,
+        product_qualification_name = product_qualification_object.name,
+        place_name = place_object.name,
+        place_latitude = place_object.latitude,
+        place_longitude =place_object.longitude,
+        product_name = product_object.name,
+        udm_id = int(form['udm_id']),
+        product_qualification_id = int(form['product_qualification_id'])
     )
     print('for here 2')
     db.session.add(post)

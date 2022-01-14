@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hi {{ partner.name }} {{ date_now }}</h1>
+    <form class="form-horizontal" action='post' method="POST">
+        <fieldset>
+        <div class="container"><br>
+          <div class="row align-items-center justify-content-center">
+          <div class="col-md-4">
+            <div id="legend">
+              <legend class="">Registro post</legend>
+            </div>
+            <div class="control-group">
+              <!-- name -->
+              <label class="control-label"  for="post">Post</label>
+              <div class="controls">
+                <input type="text" id="post" name="post" placeholder="Post" class="input-xlarge">
+                <p class="help-block">Number can contain any numbers, without spaces</p>
+              </div>
+            </div>
+      
+            <div class="control-group">
+                <!-- name -->
+                <label class="control-label"  for="price">Precio</label>
+                <div class="controls">
+                  <input type="number" id="price" name="price" placeholder="Precio" class="input-xlarge" >
+                  <p class="help-block">Code can contain any letters or numbers, without spaces</p>
+                </div>
+              </div>
+      
+              <br>
+
+          {% if places %}
+          <div class="control-group"></div>
+            <!-- Phone-->
+            <label class="control-label" for="place_id">Puesto</label>
+            <div class="controls">
+              <select name="place_id">
+                {% for place in places %}
+                <option  value="{{ place.id }}">{{ place.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          {% endif %}
+    
+    
+    
+          {% if products %}
+          <div class="control-group"></div>
+            <!-- Phone-->
+            <label class="control-label" for="product_id">Producto</label>
+            <div class="controls">
+              <select name="product_id">
+                {% for product in products %}
+                <option  value="{{ product.id }}">{{ product.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          {% endif %}
+          
+          {% if udms %}
+          <div class="control-group"></div>
+            <!-- Phone-->
+            <label class="control-label" for="udm_id">Unidad de medida del producto</label>
+            <div class="controls">
+              <select name="udm_id">
+                {% for udm in udms %}
+                <option  value="{{ udm.id }}">{{ udm.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          {% endif %}
+          
+          {% if product_qualification_offers %}
+          <div class="control-group"></div>
+            <!-- Phone-->
+            <label class="control-label" for="product_qualification_id">Estado del producto(Pimera, Segunda, Gruesa...etc)</label>
+            <div class="controls">
+              <select name="product_qualification_id">
+                {% for product_qualification_offer in product_qualification_offers %}
+                <option  value="{{ product_qualification_offer.id }}">{{ product_qualification_offer.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          {% endif %}
+
+
+        </div>											   
+          <br>
+    
+              <center>
+                <div class="control-group">
+              <!-- Button -->
+              <div class="controls">
+                <button class="btn btn-success">Register</button>
+              </div>
+              </center>
+            </form>
+<br><br><br><br>
+            
+
+{% for post in posts %}
+<div>
+{{ post.post }}
+    {{ post.place_name }}
+    {{ post.product_name }}
+    {{ post.udm_name }}
+    {{ post.product_qualification_name }}
+    {{ post.price }}
+</div>
+{% endfor %} 
+
+</body>
+</html>
