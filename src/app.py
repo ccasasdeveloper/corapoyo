@@ -144,7 +144,10 @@ def register_post():
     #print(json_object)
     products = get_products()
     places = get_places()
-    return render_template('post.html', products=products, places=places)
+    udms = db.session.query(Udm).all()
+    qualifications = db.session.query(ProductQualificationOffer).all()
+    posts = get_posts()
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts)
 
 
 #Here register finished
@@ -449,14 +452,21 @@ def get_posts():
 @app.route("/post", methods=['POST'])
 def create_post():
     if request.method == 'POST':
+        print('it is passing for here')
         now = datetime.now()
         date_now = now.strftime("%m/%d/%Y, %H:%M:%S")
         date_now_cut = now.strftime("%m/%d/%Y")
         form = request.form
+        print('It is passing for here 1')
+        print(form['udm_id'])
         udm_object = db.session.query(Udm).get(form['udm_id'])
+        print('It is passing for here 2')
         product_qualification_object = db.session.query(ProductQualificationOffer).get(form['product_qualification_id'])
+        print('It is passing for here 3')
         place_object = db.session.query(Place).get(form['place_id'])
+        print('It is passing for here 4')
         product_object = db.session.query(Product).get(form['product_id'])
+        print('It is passing for here 5')
         post = Post(
         post=str(form['post']),
         date_added=str(date_now),
