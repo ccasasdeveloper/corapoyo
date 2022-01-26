@@ -51,6 +51,7 @@ def login():
         result = session.execute(statement).scalars().all()
         if result:
             partner = result[0]
+            role = db.session.query(Role).get(int(partner.role_id))
             products = get_products()
             statement_two = select(Place).filter_by(partner_id=partner.id)
             places = session.execute(statement_two).scalars().all()
@@ -62,14 +63,23 @@ def login():
             date_now = now.strftime("%m/%d/%Y")
             statement_three = select(Post).filter_by(cut_date_added=date_now)
             posts = session.execute(statement_three).scalars().all()
+            lis_of_localitation = [] 
+            if posts:
+                for post in posts:
+                    print('from here here here')
+                    print(post.place_id)
+                    place = db.session.query(Place).get(int(post.place_id))
+                    print(place.latitude)
+                    lis_of_localitation.append(place)
             print(posts)
             print(len(posts))
             #place = session.query(Place).filter(partner_id=18).first()
             #place = place_list[0]
         print('It is passing for here')
+
         #partner =  Partner.query.filter((Partner.username == form['email']) & (Partner.username == form['password'])).first()
         if result:
-            return render_template('profile.html', partner=partner, places=places, products=products, udms=udms, product_qualification_offers=product_qualification_offers, posts=posts, date_now=date_now)
+            return render_template('profile.html', partner=partner, places=places, products=products, udms=udms, product_qualification_offers=product_qualification_offers, posts=posts, date_now=date_now, lis_of_localitation=lis_of_localitation, role=role)
         return "<h1> La contraseña o correo se encuentran errados, por favor revisalos. </h1>"
 
 
@@ -77,14 +87,20 @@ def login():
     
 
 #Hee map stars
-"""@app.route("/map")
+@app.route("/map", methods=['POST'] )
 def map():
+    print('it is passing for the map function')
+    if request.method == 'POST':
+        form = request.form
+        latitude = form['latitude']
+        longitude = form['longitude']
     #answ = requests.get('https://maps.googleapis.com/maps/api/js?key=AIzaSyCzMTiovnfjwuc7imN6qCDXoEbPO4-q_XU&callback=initMap&v=weekly')
     #print(answ)
     #roles = get_roles()
     #json_object.append(jsonify(rol))
     #print(json_object)
-    return render_template('map.html')"""
+
+    return render_template('map.html', latitude=latitude, longitude=longitude)
 
 #Here add routers to forms   
 #Here register routes starts
@@ -93,6 +109,7 @@ def map():
 def register():
     print('hello hello')
     roles = get_roles()
+    places = get_places()
     #json_object.append(jsonify(rol))
     #print(json_object)
     return render_template('register.html', roles=roles)

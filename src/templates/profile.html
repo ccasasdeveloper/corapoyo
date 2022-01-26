@@ -8,6 +8,8 @@
 </head>
 <body>
     <h1>Hi {{ partner.name }} {{ date_now }}</h1>
+    <h3>{{ role.name }}</h3>
+    {% if (role.code == 'ADMIN') or (role.code == 'VEN') or (role.code == 'SUPERADMIN') %}
     <form class="form-horizontal" action='post' method="POST">
         <fieldset>
         <div class="container"><br>
@@ -106,19 +108,28 @@
               </div>
               </center>
             </form>
+            {% endif %}
 <br><br><br><br>
             
 
 {% for post in posts %}
 <div>
 {{ post.post }}
-    {{ post.place_name }}
-    {{ post.product_name }}
-    {{ post.udm_name }}
-    {{ post.product_qualification_name }}
-    {{ post.price }}
+{{ post.place_name }}
+{{ post.product_name }}
+{{ post.udm_name }}
+{{ post.product_qualification_name }}
+{{ post.price }}
+<form action='map' method="POST">
+<label for="fname" type="hidden">Latitude:</label>
+<input type="text" id="latitude" name="latitude" type="hidden" value='{{ post.place_latitude }}'>
+<label for="fname" type="hidden">Longitude:</label>
+<input type="text" id="longitude" name="longitude" type="hidden" value='{{ post.place_longitude }}'>
+<input type="submit" value="Ver mapa">
+</form>
 </div>
 {% endfor %} 
+
 
 </body>
 </html>
