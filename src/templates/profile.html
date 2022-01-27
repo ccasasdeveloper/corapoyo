@@ -125,11 +125,11 @@
 <input type="text" id="latitude" name="latitude" type="hidden" value='{{ post.place_latitude }}'>
 <label for="fname" type="hidden">Longitude:</label>
 <input type="text" id="longitude" name="longitude" type="hidden" value='{{ post.place_longitude }}'>
+<label for="fname" type="hidden">post: </label>
+<input type="text" id="post" name="post" type="hidden" value='{{ post.post }}'>
 <input type="submit" value="Ver mapa">
 </form>
 </div>
-{% endfor %} 
-
-
+{% endfor %}
 </body>
 </html>

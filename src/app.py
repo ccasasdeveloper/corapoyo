@@ -94,13 +94,14 @@ def map():
         form = request.form
         latitude = form['latitude']
         longitude = form['longitude']
+        post = form['post']
     #answ = requests.get('https://maps.googleapis.com/maps/api/js?key=AIzaSyCzMTiovnfjwuc7imN6qCDXoEbPO4-q_XU&callback=initMap&v=weekly')
     #print(answ)
     #roles = get_roles()
     #json_object.append(jsonify(rol))
     #print(json_object)
 
-    return render_template('map.html', latitude=latitude, longitude=longitude)
+    return render_template('map.html', latitude=latitude, longitude=longitude, post=post)
 
 #Here add routers to forms   
 #Here register routes starts
