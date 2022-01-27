@@ -84,7 +84,17 @@ def login():
 
 
 # Finish login and profile
-    
+@app.route("/profile", methods=['POST'] )
+def profile():
+    print('it is passing for the map function profile')
+    if request.method == 'POST':
+        form = request.form
+        name = form['name']
+        last_name = form['last_name']
+        email = form['email']
+        username = form['username']
+        phone = form['phone']
+    return render_template('login.html', name=name, last_name=last_name, email=email, username=username, phone=phone)
 
 #Hee map stars
 @app.route("/map", methods=['POST'] )

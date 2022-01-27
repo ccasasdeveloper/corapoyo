@@ -131,5 +131,20 @@
 </form>
 </div>
 {% endfor %}
+<h1>Datos partner</h1>
+<form action='profile' method="POST">
+  <label for="fname" type="hidden">Nombre:</label>
+  <input type="text" id="name" name="name" type="hidden" value='{{ partner.name }}'>
+  <label for="fname" type="hidden">Apellido:</label>
+  <input type="text" id="last_name" name="last_name" type="hidden" value='{{ partner.last_name }}'>
+  <label for="fname" type="hidden">Email: </label>
+  <input type="text" id="email" name="email" type="hidden" value='{{ partner.email }}'>
+  <label for="fname" type="hidden">Username: </label>
+  <input type="text" id="username" name="username" type="hidden" value='{{ partner.username }}'>
+  <label for="fname" type="hidden">Phone: </label>
+  <input type="text" id="phone" name="phone" type="hidden" value='{{ partner.phone }}'>
+  <input type="submit" value="Datos perfil">
+  </form>
+  </div>
 </body>
 </html>
