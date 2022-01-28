@@ -133,11 +133,11 @@
 {% endfor %}
 <h1>Datos partner</h1>
 <form action='profile' method="POST">
-  <label for="fname" type="hidden">Nombre:</label>
+  <label for="fname" >Nombre:</label>
   <input type="text" id="name" name="name" type="hidden" value='{{ partner.name }}'>
-  <label for="fname" type="hidden">Apellido:</label>
+  <label for="fname" >Apellido:</label>
   <input type="text" id="last_name" name="last_name" type="hidden" value='{{ partner.last_name }}'>
-  <label for="fname" type="hidden">Email: </label>
+  <label for="fname" >Email: </label>
   <input type="text" id="email" name="email" type="hidden" value='{{ partner.email }}'>
   <label for="fname" type="hidden">Username: </label>
   <input type="text" id="username" name="username" type="hidden" value='{{ partner.username }}'>
@@ -146,5 +146,7 @@
   <input type="submit" value="Datos perfil">
   </form>
   </div>
+  <a href="{{ url_for('publish') }}">Publicar</a>
+  <a href="{{ url_for('close_session') }}">Cerrar sesion</a>
 </body>
 </html>

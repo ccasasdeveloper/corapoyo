@@ -1,4 +1,4 @@
-from sqlalchemy.orm import session
+from sqlalchemy.orm import session 
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 import db
@@ -6,7 +6,8 @@ from models import *
 #import request
 import datetime
 from datetime import datetime
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect, url_for
+from flask import session as ses
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -19,6 +20,7 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 engine = create_engine('postgresql://postgres:123456@localhost:5432/corapoyodb')
 session = Session(engine, future=True)
+app.secret_key = '123456'
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:123456@localhost:5432/corapoyodb"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -36,6 +38,21 @@ def index():
 @app.route("/signup")
 def signup():
     print('hello hello')
+    print('here is the good place')
+    return render_template('signup.html')
+
+@app.route("/signup_two")
+def close_session():
+    ses['username'] = ''
+    ses['user'] = ''
+    ses['role'] = ''
+    ses['date']= ''
+    print(ses['user'])
+    print(ses['role'])
+    print(ses['username'])
+    print(ses['date'])
+    print('hello hello')
+    print('here is the good place 2')
     return render_template('signup.html')
 
 
@@ -51,7 +68,11 @@ def login():
         result = session.execute(statement).scalars().all()
         if result:
             partner = result[0]
+            ses['username'] = str(partner.username)
+            print(partner.username)
+            ses['user'] = partner.username
             role = db.session.query(Role).get(int(partner.role_id))
+            ses['role'] = role.name 
             products = get_products()
             statement_two = select(Place).filter_by(partner_id=partner.id)
             places = session.execute(statement_two).scalars().all()
@@ -61,6 +82,7 @@ def login():
             print(product_qualification_offers)
             now = datetime.now()
             date_now = now.strftime("%m/%d/%Y")
+            ses['date'] = date_now
             statement_three = select(Post).filter_by(cut_date_added=date_now)
             posts = session.execute(statement_three).scalars().all()
             lis_of_localitation = [] 
@@ -87,6 +109,8 @@ def login():
 @app.route("/profile", methods=['POST'] )
 def profile():
     print('it is passing for the map function profile')
+    role = ses['role']
+    date = ses['date'] 
     if request.method == 'POST':
         form = request.form
         name = form['name']
@@ -94,36 +118,57 @@ def profile():
         email = form['email']
         username = form['username']
         phone = form['phone']
-    return render_template('login.html', name=name, last_name=last_name, email=email, username=username, phone=phone)
+    return render_template('login.html', name=name, last_name=last_name, email=email, username=username, phone=phone, role=role, date=date)
+
+@app.route("/publish")
+def publish():
+    print('it is passing for the publish function')
+    username = ses['username']
+    role = ses['role']
+    date = ses['date'] 
+    return render_template('publish.html', role=role, date=date, username=username)
+
+
+
 
 #Hee map stars
 @app.route("/map", methods=['POST'] )
 def map():
     print('it is passing for the map function')
+    username = ses['username']
+    role = ses['role']
+    date = ses['date'] 
     if request.method == 'POST':
         form = request.form
         latitude = form['latitude']
         longitude = form['longitude']
         post = form['post']
-    #answ = requests.get('https://maps.googleapis.com/maps/api/js?key=AIzaSyCzMTiovnfjwuc7imN6qCDXoEbPO4-q_XU&callback=initMap&v=weekly')
-    #print(answ)
-    #roles = get_roles()
-    #json_object.append(jsonify(rol))
-    #print(json_object)
-
-    return render_template('map.html', latitude=latitude, longitude=longitude, post=post)
+    return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username)
 
 #Here add routers to forms   
 #Here register routes starts
 
-@app.route("/register")
+@app.route("/pre_register")
+def pre_register():
+    print('hello hello')
+    roles = get_roles()
+    #json_object.append(jsonify(rol))
+    #print(json_object)
+    return render_template('preregister.html', roles=roles)
+
+@app.route("/register", methods=['POST'])
 def register():
     print('hello hello')
     roles = get_roles()
     places = get_places()
+    if request.method == 'POST':
+        form = request.form
+        statement = select(Role).filter_by(code=form['role'])
+        result = session.execute(statement).scalars().all()
+        roles = result
     #json_object.append(jsonify(rol))
     #print(json_object)
-    return render_template('register.html', roles=roles)
+    return render_template('register.html', roles=roles, places=places)
 
 @app.route("/place")
 def register_place():
@@ -138,6 +183,8 @@ def register_place():
 @app.route("/register/square")
 def register_square():
     print('hello hello')
+    if ses['username'] == '':
+        return render_template('signup.html')
     #json_object.append(jsonify(rol))
     #print(json_object)
     return render_template('square.html')
@@ -147,6 +194,8 @@ def register_store():
     print('hello hello')
     squares = get_squares()
     print(squares)
+    if ses['username'] == '':
+        return render_template('signup.html')
     #json_object.append(jsonify(rol))
     #print(json_object)
     return render_template('store.html', squares=squares)
@@ -154,13 +203,21 @@ def register_store():
 @app.route("/product")
 def register_product():
     print('hello hello')
+    if ses['username'] == '':
+        return render_template('signup.html')
     #json_object.append(jsonify(rol))
     #print(json_object)
     return render_template('product.html')
 
+
+
+
 @app.route("/role")
 def register_role():
-    print('hello hello')
+    print('This is very important')
+    print(ses['username'])
+    if ses['username'] == '':
+        return render_template('signup.html')
     #json_object.append(jsonify(rol))
     #print(json_object)
     return render_template('role.html')
