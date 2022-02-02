@@ -29,17 +29,27 @@ Bootstrap(app)
 
 
 
+@app.route("/lande")
+def lande():
+    print('hello hello')
+    return render_template('lande.html')
+
 @app.route("/")
 def index():
     print('hello hello')
     return render_template('index.html')
     
 
-@app.route("/signup")
-def signup():
+@app.route("/login")
+def login():
+    ses['username'] = ''
+    ses['user'] = ''
+    ses['role'] = ''
+    ses['date']= ''
     print('hello hello')
     print('here is the good place')
-    return render_template('signup.html')
+    return render_template('login.html', ses=ses)
+
 
 @app.route("/signup_two")
 def close_session():
@@ -53,80 +63,128 @@ def close_session():
     print(ses['date'])
     print('hello hello')
     print('here is the good place 2')
-    return render_template('signup.html')
+    return render_template('login.html')
 
 
 #login and profile
 
-@app.route("/login", methods=['POST'])
-def login():
+@app.route("/profile", methods=['POST'])
+def profile():
     print('for here 00000')
-    if request.method == 'POST':
-        form = request.form
-        print('for here 111')
-        statement = select(Partner).filter_by(email=form['email'], password=form['password'])
-        result = session.execute(statement).scalars().all()
-        if result:
-            partner = result[0]
-            ses['username'] = str(partner.username)
-            print(partner.username)
-            ses['user'] = partner.username
-            role = db.session.query(Role).get(int(partner.role_id))
-            ses['role'] = role.name 
-            products = get_products()
-            statement_two = select(Place).filter_by(partner_id=partner.id)
-            places = session.execute(statement_two).scalars().all()
-            udms = db.session.query(Udm).all()
-            product_qualification_offers = db.session.query(ProductQualificationOffer).all()
-            print(udms)
-            print(product_qualification_offers)
-            now = datetime.now()
-            date_now = now.strftime("%m/%d/%Y")
-            ses['date'] = date_now
-            statement_three = select(Post).filter_by(cut_date_added=date_now)
-            posts = session.execute(statement_three).scalars().all()
-            lis_of_localitation = [] 
-            if posts:
-                for post in posts:
-                    print('from here here here')
-                    print(post.place_id)
-                    place = db.session.query(Place).get(int(post.place_id))
-                    print(place.latitude)
-                    lis_of_localitation.append(place)
-            print(posts)
-            print(len(posts))
+    form = request.form
+    print('for here 111')
+    statement = select(Partner).filter_by(email=form['email'], password=form['password'])
+    result = session.execute(statement).scalars().all()
+    ses['email'] = form['email']
+    ses['password'] = form['password']
+    if result:
+        partner = result[0]
+        ses['partner_id'] = partner.id
+        ses['username'] = str(partner.username)
+        ses['user'] = partner.username
+        role = db.session.query(Role).get(int(partner.role_id))
+        ses['role'] = role.name
+        ses['phone'] = partner.phone
+        ses['email'] = partner.email
+        ses['name'] = partner.name
+        ses['last_name'] = partner.last_name
+        print(ses['username'])
+        #I'm cutting from here
+        #products = get_products()
+        statement_two = select(Place).filter_by(partner_id=partner.id)
+        places = session.execute(statement_two).scalars().all()
+        print('print places')
+        print(len(places))
+        if len(places) < 1 and role.code == 'VEN':
+            return "<SCRIPT> alert('Para continuar por favor registra un puesto'); window.location='/place';  </SCRIPT>"
+        #udms = db.session.query(Udm).all()
+        #product_qualification_offers = db.session.query(ProductQualificationOffer).all()
+        now = datetime.now()
+        date_now = now.strftime("%m/%d/%Y")
+        ses['date'] = date_now
+        #statement_three = select(Post).filter_by(cut_date_added=date_now)
+        #posts = session.execute(statement_three).scalars().all()
+        #lis_of_localitation = [] 
+        #if posts:
+            #for post in posts:
+                #print('from here here here')
+                #print(post.place_id)
+                #place = db.session.query(Place).get(int(post.place_id))
+                #print(place.latitude)
+                #lis_of_localitation.append(place)
+        #print(posts)
+        #print(len(posts))
             #place = session.query(Place).filter(partner_id=18).first()
             #place = place_list[0]
-        print('It is passing for here')
+    #print('It is passing for here')
 
         #partner =  Partner.query.filter((Partner.username == form['email']) & (Partner.username == form['password'])).first()
-        if result:
-            return render_template('profile.html', partner=partner, places=places, products=products, udms=udms, product_qualification_offers=product_qualification_offers, posts=posts, date_now=date_now, lis_of_localitation=lis_of_localitation, role=role)
-        return "<h1> La contraseña o correo se encuentran errados, por favor revisalos. </h1>"
+    if result:
+        return render_template('profile.html', partner=partner, places=places, date_now=date_now, role=role)
+    return "<h1> La contraseña o correo se encuentran errados, por favor revisalos. </h1>"
+   
 
+
+
+@app.route("/login_two")
+def login_two():
+    return profile()
 
 # Finish login and profile
-@app.route("/profile", methods=['POST'] )
-def profile():
+"""@app.route("/login")
+def login():
     print('it is passing for the map function profile')
     role = ses['role']
-    date = ses['date'] 
-    if request.method == 'POST':
-        form = request.form
-        name = form['name']
-        last_name = form['last_name']
-        email = form['email']
-        username = form['username']
-        phone = form['phone']
-    return render_template('login.html', name=name, last_name=last_name, email=email, username=username, phone=phone, role=role, date=date)
+    date = ses['date']
+    username = ses['username']
+    phone = ses['phone'] 
+    email = ses['email']
+    name = ses['name'] 
+    last_name = ses['last_name']
+    return render_template('login.html', name=name, last_name=last_name, email=email, username=username, phone=phone, role=role, date=date)"""
 
 @app.route("/publish")
 def publish():
     print('it is passing for the publish function')
+    partner_id = ses['partner_id']
+    username = ses['username'] 
+    user = ses['user']
+    #role = ses['role']
+    phone = ses['phone'] 
+    email= ses['email'] 
+    name = ses['name'] 
+    last_name = ses['last_name']
+    date = ses['date']
+    print(ses['partner_id'])
+    print(ses['username'])
+    print(ses['user'])
+    #print(ses['role'])
+    print(ses['phone'])
+    print(ses['email'])
+    print(ses['name'])
+    print(ses['date'])
+    password = ses['password']
+    statement = select(Partner).filter_by(email=ses['email'], password=ses['password'])
+    result = session.execute(statement).scalars().all()
+    if result:
+        partner = result[0]
+        role = db.session.query(Role).get(int(partner.role_id))
+        print('role role role')
+        print(role.code)
+        if role:
+            if role.code == 'COMP':
+                return close_session()
+        statement_two = select(Place).filter_by(partner_id=partner.id)
+        places = session.execute(statement_two).scalars().all()
+        udms = db.session.query(Udm).all()
+        product_qualification_offers = db.session.query(ProductQualificationOffer).all()
+        statement_three = select(Post).filter_by(cut_date_added=str(ses['username']))
+        posts = session.execute(statement_three).scalars().all()
+        products = get_products()
     username = ses['username']
-    role = ses['role']
-    date = ses['date'] 
-    return render_template('publish.html', role=role, date=date, username=username)
+    #role = ses['role']
+    date = ses['date']
+    return render_template('publish.html', role=role, date=date, username=username, places=places, udms=udms, product_qualification_offers=product_qualification_offers, posts=posts, products=products, email=email, password=password)
 
 
 
@@ -137,13 +195,23 @@ def map():
     print('it is passing for the map function')
     username = ses['username']
     role = ses['role']
-    date = ses['date'] 
+    date = ses['date']
+    email =  ses['email']
+    password = ses['password']
+    print(email)
+    print(password)
+    print('the session variable')
     if request.method == 'POST':
+        print('the session variable 02')
         form = request.form
+        print('the session variable 002')
         latitude = form['latitude']
+        print('the session variable 0002')
         longitude = form['longitude']
+        print('the session variable 00002')
         post = form['post']
-    return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username)
+        print('the session variable2')
+    return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username, email=email, password=password)
 
 #Here add routers to forms   
 #Here register routes starts
@@ -166,9 +234,23 @@ def register():
         statement = select(Role).filter_by(code=form['role'])
         result = session.execute(statement).scalars().all()
         roles = result
+        role = roles[0]
+        ses['role'] = role.code
+    #json_object.append(jsonify(rol))
+    #print(json_object)
+    return render_template('register.html', roles=roles, places=places, role=role)
+
+@app.route("/register_two")
+def register_two():
+    print('hello hello')
+    roles = get_roles()
+    places = get_places()
     #json_object.append(jsonify(rol))
     #print(json_object)
     return render_template('register.html', roles=roles, places=places)
+
+
+
 
 @app.route("/place")
 def register_place():
@@ -176,9 +258,17 @@ def register_place():
     partners = get_partners()
     products = get_products()
     stores = get_stores()
+    print('here there is very important data')
+    print(ses['email'])
+    statement = select(Partner).filter_by(email=ses['email'])
+    result = session.execute(statement).scalars().all()
+    print(result)
+    if result:
+        partners = result
     #json_object.append(jsonify(rol))
     #print(json_object)
     return render_template('place.html', partners=partners, products=products, stores=stores)
+
 
 @app.route("/register/square")
 def register_square():
@@ -232,7 +322,15 @@ def register_post():
     udms = db.session.query(Udm).all()
     qualifications = db.session.query(ProductQualificationOffer).all()
     posts = get_posts()
-    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts)
+    email = ses['email']
+    password = ses['password']
+    print(type(posts))
+    partner = db.session.query(Partner).get(int(ses['partner_id']))
+    role = db.session.query(Role).get(int(partner.role_id))
+    for post in posts[::-1]:
+        print(post)
+    print('post post post')
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role)
 
 
 #Here register finished
@@ -254,6 +352,7 @@ def create_partner():
     if request.method == 'POST':
         print('for here 01')
         form = request.form
+        ses['eamil'] = form['email']
         print(form)
         print('for here 02')
         partner = Partner(
@@ -266,6 +365,12 @@ def create_partner():
         role_id=int(form['role_id'])
     )
     print('for here 2')
+    role = get_role(form['role_id'])
+    print('sementhing')
+    ses['email'] = form['email']
+    print(ses['email'])
+    print('sementhing 1')
+    print(role.name)
     db.session.add(partner)
     db.session.commit()
     print(partner.id)
@@ -281,7 +386,10 @@ def create_partner():
     db.session.add(partner)
     db.session.commit()
     print(partner.id)"""
-    return "<p> Succesfully </p>"
+    if role.code == 'VEN':
+        return "<SCRIPT> alert('Registro exitoso'); window.location='/place';  </SCRIPT>"
+    else:
+        return "<SCRIPT> alert('Registro exitoso'); window.location='/signup';  </SCRIPT>"
 
 @app.route("/partner/<id>", methods=['GET'])
 def get_partner(id):
@@ -354,7 +462,7 @@ def get_role(id):
     )
     print(role.id)
     print(role.name)
-    return "<p>Hello, World!</p>"
+    return role
 
 @app.route("/role/<id>", methods=['DELETE'])
 def delete_role(id):
@@ -492,7 +600,7 @@ def create_place():
     db.session.add(place)
     db.session.commit()
     print(place.id)"""
-    return"<p> Succesfully </p>"
+    #return "<SCRIPT> alert('Registro exitoso'); window.location='/signup';  </SCRIPT>"
 
 @app.route("/place/<id>", methods=['GET'])
 def get_place(id):
@@ -577,8 +685,8 @@ def create_post():
     db.session.add(partner)
     db.session.commit()
     print(partner.id)"""
-
-    return "<p> Succesfully </p>"
+    #return "<SCRIPT> alert('Publicación exitosa'); window.location=/post;  </SCRIPT>"
+    return register_post()
 
 @app.route("/post/<id>", methods=['GET'])
 def get_post():

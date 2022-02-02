@@ -47,12 +47,16 @@
                 <li class="nav-item">
                   <a href="{{ url_for('index') }}">Menú selección</a>
                 </li>
+                {% if role == 'ADMIN' or role == 'SUPERADMIN' %}
                 <li class="nav-item"><a class="active" href="{{ url_for('register_role') }}">Registro rol</a></li>
-                <li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
                 <li class="nav-item"><a href="{{ url_for('register_store') }}">Registro Bodega</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
+                <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
                 <li class="nav-item"><a href="{{ url_for('register_product') }}">Registro Producto</a></li>
+                {% endif %}
+                <li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li>
+                <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
+                
+                
               </ul>
             </div>
             <!-- navbar collapse -->

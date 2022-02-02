@@ -46,12 +46,14 @@
                 <li class="nav-item">
                   <a href="{{ url_for('index') }}">Menú selección</a>
                 </li>
-                <li class="nav-item"><a href="{{ url_for('register_role') }}">Registro rol</a></li>
-                <li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
+                {% if role == 'ADMIN' or role == 'SUPERADMIN' %}
+                <li class="nav-item"><a class="active" href="{{ url_for('register_role') }}">Registro rol</a></li>
                 <li class="nav-item"><a href="{{ url_for('register_store') }}">Registro Bodega</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
+                <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
                 <li class="nav-item"><a href="{{ url_for('register_product') }}">Registro Producto</a></li>
+                {% endif %}
+                <li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li>
+                <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
               </ul>
             </div>
             <!-- navbar collapse -->
@@ -60,6 +62,11 @@
                                     class="lni lni-lock-alt"></i> Iniciar sesión</a>-->
               <a href="{{ url_for('signup') }}" data-toggle="modal" class="btn">Iniciar sesión</a>
             </div>
+            <div class="button mx-0">
+              <!--<a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i
+                      class="lni lni-lock-alt"></i> Iniciar sesión</a>-->
+              <a href="{{ url_for('pre_register') }}" data-toggle="modal" class="btn">Registrarse</a>
+          </div>
           </nav>
           <!-- navbar -->
         </div>
@@ -84,7 +91,7 @@
     <div class="cat-head">
       <div class="row">
         <div class="col-md-12 ">
-          <form class="form-horizontal" action='login' method="POST">
+          <form class="form-horizontal" action='profile' method="POST">
             <fieldset>
 
               <br>

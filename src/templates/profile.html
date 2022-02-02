@@ -9,129 +9,18 @@
 <body>
     <h1>Hi {{ partner.name }} {{ date_now }}</h1>
     <h3>{{ role.name }}</h3>
-    {% if (role.code == 'ADMIN') or (role.code == 'VEN') or (role.code == 'SUPERADMIN') %}
-    <form class="form-horizontal" action='post' method="POST">
-        <fieldset>
-        <div class="container"><br>
-          <div class="row align-items-center justify-content-center">
-          <div class="col-md-4">
-            <div id="legend">
-              <legend class="">Registro post</legend>
-            </div>
-            <div class="control-group">
-              <!-- name -->
-              <label class="control-label"  for="post">Post</label>
-              <div class="controls">
-                <input type="text" id="post" name="post" placeholder="Post" class="input-xlarge">
-                <p class="help-block">Number can contain any numbers, without spaces</p>
-              </div>
-            </div>
-      
-            <div class="control-group">
-                <!-- name -->
-                <label class="control-label"  for="price">Precio</label>
-                <div class="controls">
-                  <input type="number" id="price" name="price" placeholder="Precio" class="input-xlarge" >
-                  <p class="help-block">Code can contain any letters or numbers, without spaces</p>
-                </div>
-              </div>
-      
-              <br>
-
-          {% if places %}
-          <div class="control-group"></div>
-            <!-- Phone-->
-            <label class="control-label" for="place_id">Puesto</label>
-            <div class="controls">
-              <select name="place_id">
-                {% for place in places %}
-                <option  value="{{ place.id }}">{{ place.name }}</option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
-          {% endif %}
-    
-    
-    
-          {% if products %}
-          <div class="control-group"></div>
-            <!-- Phone-->
-            <label class="control-label" for="product_id">Producto</label>
-            <div class="controls">
-              <select name="product_id">
-                {% for product in products %}
-                <option  value="{{ product.id }}">{{ product.name }}</option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
-          {% endif %}
-          
-          {% if udms %}
-          <div class="control-group"></div>
-            <!-- Phone-->
-            <label class="control-label" for="udm_id">Unidad de medida del producto</label>
-            <div class="controls">
-              <select name="udm_id">
-                {% for udm in udms %}
-                <option  value="{{ udm.id }}">{{ udm.name }}</option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
-          {% endif %}
-          
-          {% if product_qualification_offers %}
-          <div class="control-group"></div>
-            <!-- Phone-->
-            <label class="control-label" for="product_qualification_id">Estado del producto(Pimera, Segunda, Gruesa...etc)</label>
-            <div class="controls">
-              <select name="product_qualification_id">
-                {% for product_qualification_offer in product_qualification_offers %}
-                <option  value="{{ product_qualification_offer.id }}">{{ product_qualification_offer.name }}</option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
-          {% endif %}
-
-
-        </div>											   
-          <br>
-    
-              <center>
-                <div class="control-group">
-              <!-- Button -->
-              <div class="controls">
-                <button class="btn btn-success">Register</button>
-              </div>
-              </center>
-            </form>
-            {% endif %}
+    <h3>{{ partner.email }}</h3>
+    <h3>{{ partner.username }}</h3>
+    <h3>{{ role.code }}</h3>
+    {% if role.code == 'VEN' %}
+      {% for place in places %}
+      {{ place.name }}
+      {% endfor %}
+    {% endif %}
 <br><br><br><br>
             
 
-{% for post in posts %}
-<div>
-{{ post.post }}
-{{ post.place_name }}
-{{ post.product_name }}
-{{ post.udm_name }}
-{{ post.product_qualification_name }}
-{{ post.price }}
-<form action='map' method="POST">
-<label for="fname" type="hidden">Latitude:</label>
-<input type="text" id="latitude" name="latitude" type="hidden" value='{{ post.place_latitude }}'>
-<label for="fname" type="hidden">Longitude:</label>
-<input type="text" id="longitude" name="longitude" type="hidden" value='{{ post.place_longitude }}'>
-<label for="fname" type="hidden">post: </label>
-<input type="text" id="post" name="post" type="hidden" value='{{ post.post }}'>
-<input type="submit" value="Ver mapa">
-</form>
-</div>
-{% endfor %}
-<h1>Datos partner</h1>
+<!--<h1>Datos partner</h1>
 <form action='profile' method="POST">
   <label for="fname" >Nombre:</label>
   <input type="text" id="name" name="name" type="hidden" value='{{ partner.name }}'>
@@ -145,8 +34,20 @@
   <input type="text" id="phone" name="phone" type="hidden" value='{{ partner.phone }}'>
   <input type="submit" value="Datos perfil">
   </form>
-  </div>
+  </div>-->
+  <form action="profile" method=POST>
+    <label for="name">First name:</label><br>
+    <input type="text" id="email" name="email" value="{{ partner.email }}"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="password" name="password" value="{{ partner.password }}"><br><br>
+    <input type="submit" value="Ir a perfil">
+  </form>
+  {% if (role.code == 'ADMIN') or (role.code == 'VEN') or (role.code == 'SUPERADMIN') %}
   <a href="{{ url_for('publish') }}">Publicar</a><br>
+  
+  {% endif %}
+  <a href="{{ url_for('create_post') }}">Publicaciones</a><br>
   <a href="{{ url_for('close_session') }}">Cerrar sesion</a>
+
 </body>
 </html>
