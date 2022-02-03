@@ -199,6 +199,9 @@ def map():
     date = ses['date']
     email =  ses['email']
     password = ses['password']
+    print('hereeeeeeeeeeeeeeeeeeeeeeeee')
+    print(ses['product'])
+    place = ses['place']
     print(email)
     print(password)
     print('the session variable')
@@ -212,7 +215,12 @@ def map():
         print('the session variable 00002')
         post = form['post']
         print('the session variable2')
-    return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username, email=email, password=password)
+        product = form['product']
+        qualification = form['product_qualification_name']
+        price = form['price']
+        udm = form['udm']
+        place = form['place']
+    return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username, email=email, password=password, product=product, qualification=qualification, price=price, udm=udm, place=place)
 
 #Here add routers to forms   
 #Here register routes starts
@@ -322,7 +330,8 @@ def register_post():
     places = get_places()
     udms = db.session.query(Udm).all()
     qualifications = db.session.query(ProductQualificationOffer).all()
-    posts = get_posts()
+    statement_three = select(Post).filter_by(cut_date_added=str(ses['date']))
+    posts = session.execute(statement_three).scalars().all()
     email = ses['email']
     password = ses['password']
     print(type(posts))

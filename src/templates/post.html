@@ -37,12 +37,22 @@
     {{ post.product_qualification_name }}
     {{ post.price }}
     <form action="map" method=POST>
-      <label for="latitude">First name:</label><br>
+      <label for="latitude">Latitud:</label><br>
       <input type="text" id="latitude" name="latitude" value="{{ post.place_latitude }}"><br>
-      <label for="longitude">Last name:</label><br>
+      <label for="longitude">Longitud:</label><br>
       <input type="text" id="longitude" name="longitude" value="{{ post.place_longitude }}"><br><br>
-      <label for="post">Last name:</label><br>
+      <label for="post">Publicacion:</label><br>
       <input type="text" id="post" name="post" value="{{ post.post }}"><br><br>
+      <label for="post">Last name:</label><br>
+      <input type="text" id="product" name="product" value="{{ post.product_name }}"><br><br>
+      <label for="post">Product qualification name:</label><br>
+      <input type="text" id="product_qualification_name" name="product_qualification_name" value="{{ post.product_qualification_name }}"><br><br>
+      <label for="post">Price:</label><br>
+      <input type="text" id="price" name="price" value="{{ post.price }}"><br><br>
+      <label for="post">Udm:</label><br>
+      <input type="text" id="udm" name="udm" value="{{ post.udm_name }}"><br><br>
+      <label for="post">Place:</label><br>
+      <input type="text" id="place" name="place" value="{{ post.place_name }}"><br><br>
       <input type="submit" value="Ver mapa">
     </form>
 </div>
