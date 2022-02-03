@@ -23,6 +23,10 @@
 <a href="{{ url_for('create_post') }}">Publicaciones</a><br>
 <a href="{{ url_for('close_session') }}">Cerrar sesion</a>
 
+<h3>{{ username }}</h3>
+<h3>{{ role }}</h3>
+<h3>{{ date }}</h3>
+
 
 {% for post in posts[::-1] %}
 <div>

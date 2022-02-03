@@ -181,10 +181,11 @@ def publish():
         statement_three = select(Post).filter_by(cut_date_added=str(ses['username']))
         posts = session.execute(statement_three).scalars().all()
         products = get_products()
+        role_name = role.name
     username = ses['username']
     #role = ses['role']
     date = ses['date']
-    return render_template('publish.html', role=role, date=date, username=username, places=places, udms=udms, product_qualification_offers=product_qualification_offers, posts=posts, products=products, email=email, password=password)
+    return render_template('publish.html', role=role, date=date, username=username, places=places, udms=udms, product_qualification_offers=product_qualification_offers, posts=posts, products=products, email=email, password=password, role_name=role_name)
 
 
 
@@ -325,12 +326,19 @@ def register_post():
     email = ses['email']
     password = ses['password']
     print(type(posts))
+    print('this is test to Charlie')
+    username = ses['username']
+    date = ses['date']
+    role = ses['role']
+    print(ses['username'])
+    print(ses['date'])
+    print(ses['role'])
     partner = db.session.query(Partner).get(int(ses['partner_id']))
-    role = db.session.query(Role).get(int(partner.role_id))
+    #role = db.session.query(Role).get(int(partner.role_id))
     for post in posts[::-1]:
         print(post)
     print('post post post')
-    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role)
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date)
 
 
 #Here register finished
