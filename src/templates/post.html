@@ -21,12 +21,26 @@
 <a href="{{ url_for('publish') }}">Publicar</a><br>
 {% endif %}
 <a href="{{ url_for('create_post') }}">Publicaciones</a><br>
+<a href="{{ url_for('post_p') }}">Filtrar por precio de menor a mayor</a><br>
+<a href="{{ url_for('post_pmy') }}">Filtrar por precio de mayor a menor</a><br>
+
+
+
+<form action="post_name" method=POST>
+<select name="product_name">
+  {% for product in products %}
+  <option value="{{ product.name }}">{{ product.name }}</option>
+  {% endfor %}
+</select><br>
+<input type="submit" value="Filtrar por nombre del producto">
+</form><br>
+
+
 <a href="{{ url_for('close_session') }}">Cerrar sesion</a>
 
 <h3>{{ username }}</h3>
 <h3>{{ role }}</h3>
 <h3>{{ date }}</h3>
-
 
 {% for post in posts[::-1] %}
 <div>
@@ -56,7 +70,7 @@
       <input type="submit" value="Ver mapa">
     </form>
 </div>
-{% endfor %} 
+{% endfor %}
 
 
 </body>
