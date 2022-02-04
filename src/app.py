@@ -36,6 +36,14 @@ def lande():
 
 @app.route("/")
 def index():
+    ses['username'] = ''
+    ses['user'] = ''
+    ses['role'] = ''
+    ses['date']= ''
+    ses['phone'] = ''
+    ses['email'] = ''
+    ses['name'] = ''
+    ses['last_name'] = ''
     print('hello hello')
     return render_template('index.html')
     
@@ -57,6 +65,10 @@ def close_session():
     ses['user'] = ''
     ses['role'] = ''
     ses['date']= ''
+    ses['phone'] = ''
+    ses['email'] = ''
+    ses['name'] = ''
+    ses['last_name'] = ''
     print(ses['user'])
     print(ses['role'])
     print(ses['username'])
@@ -249,6 +261,7 @@ def register():
     #print(json_object)
     return render_template('register.html', roles=roles, places=places, role=role)
 
+
 @app.route("/register_two")
 def register_two():
     print('hello hello')
@@ -274,9 +287,13 @@ def register_place():
     print(result)
     if result:
         partners = result
+    if len(partners) > 1:
+        return "<SCRIPT> alert('No has registrado un partner'); window.location='/pre_register';  </SCRIPT>"
     #json_object.append(jsonify(rol))
     #print(json_object)
     return render_template('place.html', partners=partners, products=products, stores=stores)
+
+
 
 
 @app.route("/register/square")
@@ -335,6 +352,7 @@ def register_post():
     email = ses['email']
     password = ses['password']
     print(type(posts))
+    print(posts)
     print('this is test to Charlie')
     username = ses['username']
     date = ses['date']
@@ -344,11 +362,108 @@ def register_post():
     print(ses['role'])
     partner = db.session.query(Partner).get(int(ses['partner_id']))
     #role = db.session.query(Role).get(int(partner.role_id))
-    for post in posts[::-1]:
-        print(post)
     print('post post post')
     return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date)
 
+@app.route("/post_p")
+def post_p():
+    print('hello hello')
+    #json_object.append(jsonify(rol))
+    #print(json_object)
+    products = get_products()
+    places = get_places()
+    udms = db.session.query(Udm).all()
+    qualifications = db.session.query(ProductQualificationOffer).all()
+    statement_three = select(Post).order_by(Post.price).filter_by(cut_date_added=str(ses['date']))
+    posts = session.execute(statement_three).scalars().all()
+    if posts:
+        list_posts = []
+        for post in posts[::-1]:
+            list_posts.append(post)
+        posts = list_posts
+    print('this is first type')
+    print(type(posts))
+    #posts = statement_three.order_by('price')
+    print('this is second type')
+    print(type(posts))
+    email = ses['email']
+    password = ses['password']
+    print(type(posts))
+    print('this is test to Charlie')
+    username = ses['username']
+    date = ses['date']
+    role = ses['role']
+    print(ses['username'])
+    print(ses['date'])
+    print(ses['role'])
+    partner = db.session.query(Partner).get(int(ses['partner_id']))
+    #role = db.session.query(Role).get(int(partner.role_id))
+    print('post post post')
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date)
+
+
+@app.route("/post_pmy")
+def post_pmy():
+    print('hello hello')
+    #json_object.append(jsonify(rol))
+    #print(json_object)
+    products = get_products()
+    places = get_places()
+    udms = db.session.query(Udm).all()
+    qualifications = db.session.query(ProductQualificationOffer).all()
+    statement_three = select(Post).order_by(Post.price).filter_by(cut_date_added=str(ses['date']))
+    posts = session.execute(statement_three).scalars().all()
+    print('this is first type')
+    print(type(posts))
+    #posts = statement_three.order_by('price')
+    print('this is second type')
+    print(type(posts))
+    email = ses['email']
+    password = ses['password']
+    print(type(posts))
+    print('this is test to Charlie')
+    username = ses['username']
+    date = ses['date']
+    role = ses['role']
+    print(ses['username'])
+    print(ses['date'])
+    print(ses['role'])
+    partner = db.session.query(Partner).get(int(ses['partner_id']))
+    #role = db.session.query(Role).get(int(partner.role_id))
+    print('post post post')
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date)
+
+@app.route("/post_name", methods=['POST'])
+def post_name():
+    print('hello hello')
+    #json_object.append(jsonify(rol))
+    #print(json_object)
+    form = request.form
+    products = get_products()
+    places = get_places()
+    udms = db.session.query(Udm).all()
+    qualifications = db.session.query(ProductQualificationOffer).all()
+    statement_three = select(Post).filter_by(cut_date_added=str(ses['date']), product_name=form['product_name'])
+    posts = session.execute(statement_three).scalars().all()
+    print('this is first type')
+    print(type(posts))
+    #posts = statement_three.order_by('price')
+    print('this is second type')
+    print(type(posts))
+    email = ses['email']
+    password = ses['password']
+    print(type(posts))
+    print('this is test to Charlie')
+    username = ses['username']
+    date = ses['date']
+    role = ses['role']
+    print(ses['username'])
+    print(ses['date'])
+    print(ses['role'])
+    partner = db.session.query(Partner).get(int(ses['partner_id']))
+    #role = db.session.query(Role).get(int(partner.role_id))
+    print('post post post')
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date)
 
 #Here register finished
 
@@ -584,6 +699,7 @@ def create_place():
     print(type(str(latitude)))
     print(type(str(longitude)))
     print(type(json.dumps(resultObject)))
+    print(ses['username'])
     if request.method == 'POST':
         form = request.form
         print('yes')
@@ -617,7 +733,7 @@ def create_place():
     db.session.add(place)
     db.session.commit()
     print(place.id)"""
-    #return "<SCRIPT> alert('Registro exitoso'); window.location='/signup';  </SCRIPT>"
+    return "<SCRIPT> alert('Registro exitoso'); window.location='/login';  </SCRIPT>"
 
 @app.route("/place/<id>", methods=['GET'])
 def get_place(id):
