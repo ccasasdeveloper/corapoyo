@@ -443,10 +443,15 @@ def post_name():
     places = get_places()
     udms = db.session.query(Udm).all()
     qualifications = db.session.query(ProductQualificationOffer).all()
-    statement_three = select(Post).filter_by(cut_date_added=str(ses['date']), product_name=form['product_name'])
+    statement_three = select(Post).order_by(Post.price).filter_by(cut_date_added=str(ses['date']), product_name=form['product_name'])
     posts = session.execute(statement_three).scalars().all()
     print('this is first type')
     print(type(posts))
+    if posts:
+        list_posts = []
+        for post in posts[::-1]:
+            list_posts.append(post)
+        posts = list_posts
     #posts = statement_three.order_by('price')
     print('this is second type')
     print(type(posts))
@@ -709,7 +714,6 @@ def create_place():
         product_id=int(form['product_id']),
         product_two_id=int(form['product_two_id']),
         product_three_id=int(form['product_three_id']),
-
         latitude = str(form['almcLati']),
         longitude = str(form['almcLong']),
         store_id=int(form['store_id']),
