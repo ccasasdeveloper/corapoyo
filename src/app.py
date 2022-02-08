@@ -134,6 +134,15 @@ def profile():
     if result:
         return render_template('profile.html', partner=partner, places=places, date_now=date_now, role=role)
     return "<h1> La contraseña o correo se encuentran errados, por favor revisalos. </h1>"
+
+
+@app.route("/rocover_password")
+def recover_password():
+    partner = ses['username'] 
+    role = ses['role']
+    phone = ses['phone']
+    date = ses['date'] 
+    return render_template('recover_password.html', partner=partner, role=role, phone=phone, date=date)
    
 
 
@@ -211,9 +220,8 @@ def map():
     date = ses['date']
     email =  ses['email']
     password = ses['password']
+    phone = ses['phone']
     print('hereeeeeeeeeeeeeeeeeeeeeeeee')
-    print(ses['product'])
-    place = ses['place']
     print(email)
     print(password)
     print('the session variable')
@@ -232,7 +240,7 @@ def map():
         price = form['price']
         udm = form['udm']
         place = form['place']
-    return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username, email=email, password=password, product=product, qualification=qualification, price=price, udm=udm, place=place)
+    return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username, email=email, password=password, product=product, qualification=qualification, price=price, udm=udm, place=place, phone=phone)
 
 #Here add routers to forms   
 #Here register routes starts
