@@ -114,6 +114,7 @@ def profile():
         now = datetime.now()
         date_now = now.strftime("%m/%d/%Y")
         ses['date'] = date_now
+        rol = ses['role']
         #statement_three = select(Post).filter_by(cut_date_added=date_now)
         #posts = session.execute(statement_three).scalars().all()
         #lis_of_localitation = [] 
@@ -132,11 +133,11 @@ def profile():
 
         #partner =  Partner.query.filter((Partner.username == form['email']) & (Partner.username == form['password'])).first()
     if result:
-        return render_template('profile.html', partner=partner, places=places, date_now=date_now, role=role)
+        return render_template('profile.html', partner=partner, places=places, date_now=date_now, role=role, rol=rol)
     return "<h1> La contraseña o correo se encuentran errados, por favor revisalos. </h1>"
 
 
-@app.route("/rocover_password")
+@app.route("/recover_password")
 def recover_password():
     partner = ses['username'] 
     role = ses['role']
@@ -297,9 +298,10 @@ def register_place():
         partners = result
     if len(partners) > 1:
         return "<SCRIPT> alert('No has registrado un partner'); window.location='/pre_register';  </SCRIPT>"
+    rol = ses['role']
     #json_object.append(jsonify(rol))
     #print(json_object)
-    return render_template('place.html', partners=partners, products=products, stores=stores)
+    return render_template('place.html', partners=partners, products=products, stores=stores,rol=rol)
 
 
 
@@ -309,9 +311,10 @@ def register_square():
     print('hello hello')
     if ses['username'] == '':
         return render_template('signup.html')
+    rol = ses['role']
     #json_object.append(jsonify(rol))
     #print(json_object)
-    return render_template('square.html')
+    return render_template('square.html', rol=rol)
 
 @app.route("/store")
 def register_store():
@@ -320,18 +323,20 @@ def register_store():
     print(squares)
     if ses['username'] == '':
         return render_template('signup.html')
+    rol = ses['role']
     #json_object.append(jsonify(rol))
     #print(json_object)
-    return render_template('store.html', squares=squares)
+    return render_template('store.html', squares=squares, rol=rol)
 
 @app.route("/product")
 def register_product():
     print('hello hello')
     if ses['username'] == '':
         return render_template('signup.html')
+    rol = ses['role']
     #json_object.append(jsonify(rol))
     #print(json_object)
-    return render_template('product.html')
+    return render_template('product.html', rol=rol)
 
 
 
@@ -342,9 +347,10 @@ def register_role():
     print(ses['username'])
     if ses['username'] == '':
         return render_template('signup.html')
+    rol = ses['role']
     #json_object.append(jsonify(rol))
     #print(json_object)
-    return render_template('role.html')
+    return render_template('role.html', rol=rol)
 
 @app.route("/post")
 def register_post():

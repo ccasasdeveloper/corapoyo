@@ -1,34 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h4>Que tipo de rol tendras en la plataforma?</h4><br>
+{% extends "bootstrap/base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block head %}
+
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Registro | CorAppBastos</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" type="image/x-icon" href="../static/assets/images/favicon.svg" />
+<!-- Favicon.ico -->
+
+<!-- Web Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+<!-- ========================= CSS here ========================= -->
+<link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../static/assets/css/LineIcons.2.0.css" />
+<link rel="stylesheet" href="../static/assets/css/animate.css" />
+<link rel="stylesheet" href="../static/assets/css/tiny-slider.css" />
+<link rel="stylesheet" href="../static/assets/css/glightbox.min.css" />
+<link rel="stylesheet" href="../static/assets/css/main.css" />
+<link rel="stylesheet" href="../static/assets/css/custom.css" /> {% endblock %} {% block content %}
+
+<div id="loading-area"></div>
+<!-- Start Header Area -->
+<header class="header">
+    <div class="navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand logo" href="{{ url_for('index') }}">
+                            <img class="logo1" src="../static/assets/images/logo/logo.png" alt="Logo" />
+                        </a>
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            <ul id="nav" class="navbar-nav ml-auto">
+                                <li class="nav-item hidde"><a href="#">Menu</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="button">
+                            <a href="{{ url_for('login') }}" class="login"><i class="lni lni-lock-alt"></i>
+                                Login</a>
+                            <a href="{{ url_for('pre_register') }}" class="btn">Registrarse</a>
+                        </div>
+                    </nav>
+                    <!-- navbar -->
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- navbar area -->
+</header>
+<!-- End Header Area -->
 
 
-    <form id="frmPreReg" action="register" method=POST>
-        <input style="display: none;" type="text" name="role" id="role" value="">
+<!-- Content -->
+<section class="hero-area style4">
 
-        <button onclick="comp()">Comprador</button>
-        <button onclick="ven()">Vendedor</button>
-    </form>
+    <div class="hero-inner">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-10 offset-lg-1 co-12 my-6">
+                    <div class="inner-content">
+                        <div class="hero-text">
+                            <h1 class="wow fadeInUp" data-wow-delay=".3s"
+                                style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+								Por favor seleccione<br> un tipo de cuenta para continuar
+                            </h1>
+                            <p class="wow fadeInUp" data-wow-delay=".5s"
+                                style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                                Debe seleccionar un rol para poder registrarse.
+                            </p>
+                            <div class="button wow fadeInUp" data-wow-delay=".7s"
+                                style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+								
+								
+								<form id="frmPreReg" action="register" method=POST>
+									<input style="display: none;" type="text" name="role" id="role" value="">
+									
+                                    <a href="javascript:;" onclick="comp();" class="btn">  Comprador</a>
+									<a href="javascript:;" onclick="ven();" class="btn btn-alt"> Vendedor</a>
+                                </form>
+								
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        function comp() {
+</section>
 
-            document.getElementById("role").value = "COMP";
-            document.getElementById('frmPreReg').submit();
-        }
 
-        function ven() {
+<a href="#" class="scroll-top btn-hover">
+    <i class="lni lni-chevron-up"></i>
+</a>
+<!-- /Content -->
 
-            document.getElementById("role").value = "VEN";
-            document.getElementById('frmPreReg').submit();
-        }
-    </script>
-</body>
-</html>
+<!-- Start Footer Area -->
+<footer class="footer">
+
+    <!-- Start Footer Bottom -->
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="left">
+                            <p>Desarrollador por<a href="https://tayronasolutions.com/" rel="nofollow"
+                                    target="_blank">TayronaSolutions</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="right">
+                            <ul>
+                                <li><a href="#">Terminos de uso</a></li>
+                                <li><a href="#">Politica de privacidad</a></li>
+                                <li><a href="#">Habeas data</a></li>
+                                <li><a href="#">Contacto</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Middle -->
+</footer>
+<!--/ End Footer Area -->
+
+<!-- ========================= scroll-top ========================= -->
+<a href="#" class="scroll-top btn-hover">
+    <i class="lni lni-chevron-up"></i>
+</a>
+
+<!-- ========================= JS here ========================= -->
+<script src="../static/assets/js/custom.js"></script>
+<script src="../static/assets/js/bootstrap.min.js"></script>
+<script src="../static/assets/js/wow.min.js"></script>
+<script src="../static/assets/js/tiny-slider.js"></script>
+<script src="../static/assets/js/glightbox.min.js"></script>
+<script src="../static/assets/js/main.js"></script>
+{% endblock %} {% block srcipts %} {{ super() }} {% endblock %}

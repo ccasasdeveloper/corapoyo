@@ -1,7 +1,16 @@
+/*
+General
+ */
+
+.navbar-area {
+    background-color: white;
+}
+
 .form-group {
     margin-bottom: 15px;
     display: block;
 }
+
 .form-group input {
     height: 55px;
     line-height: 55px;
@@ -55,17 +64,165 @@
 }
 
 label {
-	color:black;
-	margin-bottom:6px;
-	font-size:bold;	
+    color: black;
+    margin-bottom: 6px;
+    font-size: bold;
 }
 
-.help-block{
-	margin-top:1px;
-	font-size:12px;	
+.help-block {
+    margin-top: 1px;
+    font-size: 12px;
 }
 
 #map {
-	height: 500px;
-	width: 100%;
+    height: 500px;
+    width: 100%;
 }
+
+.display_n {
+    display: none !important;
+}
+.hidde {
+    visibility: hidden;
+}
+
+.breadcrumbs {
+    background-image: url(../images/resources/breadone.png);
+}
+
+.text-nontrans {
+    text-transform: inherit !important;
+}
+
+.hero-area.style4 {
+    background-image: url(https://demo.graygrids.com/themes/jobgrids/assets/images/hero/home-page4.jpg);
+}
+
+.hero-area.style4::after {
+    background-image: url(https://demo.graygrids.com/themes/jobgrids/assets/images/hero/small-patern.png);
+}
+
+.my-6 {
+    margin-top: 5rem !important;
+    margin-bottom: 5rem !important;
+}
+
+.hero-area.style2 {
+    position: relative;
+    height: auto !important;
+    width: 100%;
+}
+
+.footer-top {
+    background: #f6f9fc;
+}
+
+.btn-wp{
+    background-color: #128c7e !important;
+}
+
+.button .btn-wp:hover {
+    background-color: #075e54 !important;
+}
+
+.form-control {
+    font-size: inherit !important;
+}
+
+.password-content {
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+.password-content h3 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.password-content p {
+    display: block;
+    margin-top: 5px;
+}
+
+.password-content form {
+    margin-top: 30px;
+}
+
+/*
+Page
+ */
+
+ /*
+Index
+ */
+
+ .header .button .btn {
+    background: #ff7f4e;
+}
+.button .btn {
+    background-color: #ff7f4e;
+}
+.button .btn:hover {
+    background-color: #FF4D91 !important;
+    color: white !important;
+}
+.button .btn-alt {
+    background-color: #CFD85C;
+    color: black !important;
+}
+.call-action.style2 {
+    background-color: #ff7f4e;
+}
+.header .button .login {
+    color: #ff7f4e;
+}
+
+.header .button .login:hover {
+    border-color: #FF4D91;
+    color: #FF4D91;
+}
+
+.call-action.style2 .button .btn {
+    background-color: #CFD85C;
+    color: black;
+}
+
+.about-us .content-left .media-body {
+    background-color: #ff7f4e;
+}
+
+.about-us .content-right .single-list i {
+    background: #CFD85C;
+    color: black;
+}
+
+.scroll-top {
+    background: #ff7f4e;
+}
+
+.hero-area {
+    background: #ffb0914a;
+}
+
+.scroll-top:hover {
+    background-color: #FF4D91;
+}
+
+/*
+Responsive
+ */
+
+@media only screen and (max-width: 767px){
+    .map-section {
+        padding-bottom: 0px !important;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px){
+    .container {
+         width: auto; 
+    }
+}
+

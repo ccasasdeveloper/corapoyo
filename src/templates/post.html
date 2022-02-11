@@ -1,77 +1,254 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-  <a href="{{ url_for('register_product') }}">Registro Producto</a>
-<br><br><br><br>
+{% extends "bootstrap/base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block head %}
 
-<form action="profile" method=POST>
-  <label for="name">First name:</label><br>
-  <input type="text" id="email" name="email" value="{{ email }}"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="password" name="password" value="{{ password }}"><br><br>
-  <input type="submit" value="Ir a perfil">
-</form>
-{% if (role.code == 'ADMIN') or (role.code == 'VEN') or (role.code == 'SUPERADMIN') %}
-<a href="{{ url_for('publish') }}">Publicar</a><br>
-{% endif %}
-<a href="{{ url_for('create_post') }}">Publicaciones</a><br>
-<a href="{{ url_for('post_p') }}">Filtrar por precio de menor a mayor</a><br>
-<a href="{{ url_for('post_pmy') }}">Filtrar por precio de mayor a menor</a><br>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Ver publicaciones | CorAppBastos</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" type="image/x-icon" href="../static/assets/images/favicon.svg" />
+<!-- Favicon.ico -->
+
+<!-- Web Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+<!-- ========================= CSS here ========================= -->
+<link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../static/assets/css/LineIcons.2.0.css" />
+<link rel="stylesheet" href="../static/assets/css/animate.css" />
+<link rel="stylesheet" href="../static/assets/css/tiny-slider.css" />
+<link rel="stylesheet" href="../static/assets/css/glightbox.min.css" />
+<link rel="stylesheet" href="../static/assets/css/main.css" />
+<link rel="stylesheet" href="../static/assets/css/custom.css" /> {% endblock %} {% block content %}
+
+<!-- Start Header Area -->
+<header class="header">
+    <div class="navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand logo" href="{{ url_for('index') }}">
+                            <img class="logo1" src="../static/assets/images/logo/logo.png" alt="Logo" />
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            <ul id="nav" class="navbar-nav ml-auto">
+                                {% if role.name == 'Administrador' or role.name == 'Superadministrador' %}
+                                <li class="nav-item">
+                                    <a href="{{ url_for('lande') }}">Menú adminstrador</a>
+                                </li>
+                                {% endif %}
+                                <li class="nav-item hidde">
+                                    <a href="{{ url_for('lande') }}">Menú</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- navbar collapse -->
+                        <div class="button mx-0">
+                            <!--<a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i
+                                    class="lni lni-lock-alt"></i> Iniciar sesión</a>-->
+                            <a href="{{ url_for('close_session') }}" data-toggle="modal" class="btn">Cerrar Sesión</a>
+                        </div>
+                    </nav>
+                    <!-- navbar -->
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- navbar area -->
+</header>
+<!-- End Header Area -->
 
 
+<!-- Content -->
+<div id="loading-area"></div>
 
-<form action="post_name" method=POST>
-<select name="product_name">
-  {% for product in products %}
-  <option value="{{ product.name }}">{{ product.name }}</option>
-  {% endfor %}
-</select><br>
-<input type="submit" value="Filtrar por nombre del producto">
-</form><br>
-
-
-<a href="{{ url_for('close_session') }}">Cerrar sesion</a>
-
-<h3>{{ username }}</h3>
-<h3>{{ role }}</h3>
-<h3>{{ date }}</h3>
-
-{% for post in posts[::-1] %}
-<div>
-{{ post.post }}
-    {{ post.place_name }}
-    {{ post.product_name }}
-    {{ post.udm_name }}
-    {{ post.product_qualification_name }}
-    {{ post.price }}
-    <form action="map" method=POST>
-      <label for="latitude">Latitud:</label><br>
-      <input type="text" id="latitude" name="latitude" value="{{ post.place_latitude }}"><br>
-      <label for="longitude">Longitud:</label><br>
-      <input type="text" id="longitude" name="longitude" value="{{ post.place_longitude }}"><br><br>
-      <label for="post">Publicacion:</label><br>
-      <input type="text" id="post" name="post" value="{{ post.post }}"><br><br>
-      <label for="post">Last name:</label><br>
-      <input type="text" id="product" name="product" value="{{ post.product_name }}"><br><br>
-      <label for="post">Product qualification name:</label><br>
-      <input type="text" id="product_qualification_name" name="product_qualification_name" value="{{ post.product_qualification_name }}"><br><br>
-      <label for="post">Price:</label><br>
-      <input type="text" id="price" name="price" value="{{ post.price }}"><br><br>
-      <label for="post">Udm:</label><br>
-      <input type="text" id="udm" name="udm" value="{{ post.udm_name }}"><br><br>
-      <label for="post">Place:</label><br>
-      <input type="text" id="place" name="place" value="{{ post.place_name }}"><br><br>
-      <input type="submit" value="Ver mapa">
-    </form>
+<div class="breadcrumbs overlay">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">Publicaciones</h1>
+                    <p>En esta sección podra conocer las publicaciones de los vendedores acerca de los productos y
+                        promociones ofertadas.</p>
+                </div>
+                <ul class="breadcrumb-nav">
+                    <li><a href="#">Inicio</a></li>
+                    <li>Ver publicaciones</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
-{% endfor %}
 
 
-</body>
-</html> 
+<div class="bookmarked section">
+    <div class="container">
+        <div class="alerts-inner">
+            <div class="row">
+
+                <div class="col-lg-4 col-12">
+                    <div class="dashbord-sidebar">
+                        <ul>
+                            <li class="heading mb-0">Hola {{ username }}</li>
+                            <div class="col-lg-12 col-md-12 col-12 time mb-2">
+                                <p><span>{{ role }} | {{ date }}</span></p>
+                            </div>
+                            <hr>
+                            <li class="heading">Panel de navegación</li>
+                            <li>
+                                <form id="frmProfile" action="profile" method=POST>
+                                    <input type="text" class="display_n" id="email" name="email" value="{{ email }}">
+                                    <input type="text" class="display_n" id="password" name="password"
+                                        value="{{ password }}">
+
+                                    <a href="javascript:;" onclick="document.getElementById('frmProfile').submit();"><i
+                                            class="lni lni-clipboard"></i> Mi perfil</a>
+                                </form>
+                            </li>
+                            {% if (role == 'ADMIN') or (role == 'Vendedor') or (role == 'SUPERADMIN') %}
+                            <li><a href="{{ url_for('publish') }}"><i class="lni lni-bookmark"></i> Publicar</a></li>
+                            {% endif %}
+                            <li><a class="active" href="{{ url_for('create_post') }}"><i class="lni lni-bookmark"></i>
+                                    Ver publicaciones</a></li>
+                            <li class="display_n"><a href="#"><i class="lni lni-alarm"></i> Notificaciones <span
+                                        class="notifi">666</span></a></li>
+                            <li><a href="{{ url_for('close_session') }}"><i class="lni lni-upload"></i> Cerrar
+                                    sesión</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-12">
+
+                    <div class="job-items">
+
+                        {% for post in posts[::-1] %}
+                        <div class="manage-content">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="title-img">
+                                        <div class="can-img">
+                                            <img src="../static/assets/images/logo/logo_screen.png" alt="#">
+                                        </div>
+                                        <h3>{{ post.product_name }} <span>Puesto: {{ post.place_name }}</span></h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12 time">
+                                    <p><span><b>Unidad de medida: </b>{{ post.udm_name }}</span></p>
+                                    <p><span><b>Precio del producto: </b>{{ post.price }}</span></p>
+                                    <p><span><b>Calidad del producto: </b>{{ post.product_qualification_name }}</span>
+                                    </p>
+                                    <p><span><b>Calificación del puesto: </b><i class="lni lni-star-filled"></i><i
+                                                class="lni lni-star-filled"></i><i
+                                                class="lni lni-star-filled"></i></span></p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-12">
+                                    <p class="location"><i class="lni lni-map-marker"></i> Bogotá, COL</p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-12">
+                                    <form action="map" method=POST>
+                                        <input type="text" class="display_n" id="latitude" name="latitude"
+                                            value="{{ post.place_latitude }}">
+                                        <input type="text" class="display_n" id="longitude" name="longitude"
+                                            value="{{ post.place_longitude }}">
+                                        <input type="text" class="display_n" id="post" name="post"
+                                            value="{{ post.post }}">
+                                        <input type="text" class="display_n" id="product" name="product"
+                                            value="{{ post.product_name }}">
+                                        <input type="text" class="display_n" id="product_qualification_name"
+                                            name="product_qualification_name"
+                                            value="{{ post.product_qualification_name }}">
+                                        <input type="text" class="display_n" id="price" name="price"
+                                            value="{{ post.price }}">
+                                        <input type="text" class="display_n" id="udm" name="udm"
+                                            value="{{ post.udm_name }}">
+                                        <input type="text" class="display_n" id="place" name="place"
+                                            value="{{ post.place_name }}">
+                                        <div class="button">
+                                            <input type="submit" class="btn" value="Ver mapa">
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="pagination left pagination-md-center">
+                        <ul class="pagination-list">
+                            <li><a href="#"><i class="lni lni-arrow-left"></i></a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#"><i class="lni lni-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a href="#" class="scroll-top btn-hover">
+    <i class="lni lni-chevron-up"></i>
+</a>
+<!-- /Content -->
+
+<!-- Start Footer Area -->
+<footer class="footer">
+
+    <!-- Start Footer Bottom -->
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="left">
+                            <p>Desarrollador por<a href="https://tayronasolutions.com/" rel="nofollow"
+                                    target="_blank">TayronaSolutions</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="right">
+                            <ul>
+                                <li><a href="#">Terminos de uso</a></li>
+                                <li><a href="#">Politica de privacidad</a></li>
+                                <li><a href="#">Habeas data</a></li>
+                                <li><a href="#">Contacto</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Middle -->
+</footer>
+<!--/ End Footer Area -->
+
+<!-- ========================= scroll-top ========================= -->
+<a href="#" class="scroll-top btn-hover">
+    <i class="lni lni-chevron-up"></i>
+</a>
+
+<!-- ========================= JS here ========================= -->
+<script src="../static/assets/js/bootstrap.min.js"></script>
+<script src="../static/assets/js/wow.min.js"></script>
+<script src="../static/assets/js/tiny-slider.js"></script>
+<script src="../static/assets/js/glightbox.min.js"></script>
+<script src="../static/assets/js/main.js"></script>
+{% endblock %} {% block srcipts %} {{ super() }} {% endblock %}

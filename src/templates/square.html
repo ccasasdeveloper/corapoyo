@@ -4,7 +4,7 @@
 
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
-<title>Registro Plaza - Corapoyo</title>
+<title>Registro Plaza | CorAppBastos</title>
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="shortcut icon" type="image/x-icon" href="../static/assets/images/favicon.svg" />
@@ -43,21 +43,19 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               <ul id="nav" class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a href="{{ url_for('index') }}">Menú selección</a>
+                  <a href="{{ url_for('lande') }}">Menú adminstrador</a>
                 </li>
                 <li class="nav-item"><a href="{{ url_for('register_role') }}">Registro rol</a></li>
-                <li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li>
-                <li class="nav-item"><a class="active" href="{{ url_for('register_square') }}">Registro Plaza</a></li>
                 <li class="nav-item"><a href="{{ url_for('register_store') }}">Registro Bodega</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
+                <li class="nav-item"><a class="active" href="{{ url_for('register_square') }}">Registro Plaza</a></li>
                 <li class="nav-item"><a href="{{ url_for('register_product') }}">Registro Producto</a></li>
+                <!--<li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li> -->
+                <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
               </ul>
             </div>
             <!-- navbar collapse -->
             <div class="button mx-0">
-              <!--<a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i
-                                  class="lni lni-lock-alt"></i> Iniciar sesión</a>-->
-              <a href="{{ url_for('signup') }}" data-toggle="modal" class="btn">Iniciar sesión</a>
+              <a href="{{ url_for('close_session') }}" data-toggle="modal" class="btn">Cerrar Sesión</a>
             </div>
           </nav>
           <!-- navbar -->
@@ -83,7 +81,7 @@
     <div class="cat-head">
       <div class="row">
         <div class="col-md-12 ">
-          <form class="form-horizontal" action='square' method="POST">
+          <form class="form-horizontal was-validated" action='square' method="POST">
             <fieldset>
               <div class="container"><br>
                 <div class="row align-items-center justify-content-center">
@@ -92,8 +90,10 @@
                       <!-- name -->
                       <label class="control-label" for="name">Nombre</label>
                       <div class="controls form-group">
-                        <input type="text" id="name" name="name" placeholder="Nombre" class="input-xlarge">
-                        <p class="help-block">El nombre puede contener cualquier letra o número, sin espacios</p>
+                        <input type="text" id="name" name="name" placeholder="Nombre" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                        <div class="invalid-feedback">El nombre puede contener cualquier letra o número, sin espacios
+                        </div>
                       </div>
                     </div>
 
@@ -101,8 +101,10 @@
                       <!-- name -->
                       <label class="control-label" for="code">Código</label>
                       <div class="controls form-group">
-                        <input type="text" id="code" name="code" placeholder="Código" class="input-xlarge">
-                        <p class="help-block">El código puede contener cualquier letra o número, sin espacios</p>
+                        <input type="text" id="code" name="code" placeholder="Código" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                        <div class="invalid-feedback">El código puede contener cualquier letra o número, sin espacios
+                        </div>
                       </div>
                     </div>
                   </div>
