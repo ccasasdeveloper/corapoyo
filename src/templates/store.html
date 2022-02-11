@@ -4,7 +4,7 @@
 
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
-<title>Registro Bodega - Corapoyo</title>
+<title>Registro Bodega | CorAppBastos</title>
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="shortcut icon" type="image/x-icon" href="../static/assets/images/favicon.svg" />
@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="../static/assets/css/glightbox.min.css" />
 <link rel="stylesheet" href="../static/assets/css/main.css" />
 <link rel="stylesheet" href="../static/assets/css/custom.css" />
+
 {% endblock %}
 {% block content %}
 <header class="header">
@@ -42,21 +43,19 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               <ul id="nav" class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a href="{{ url_for('index') }}">Menú selección</a>
+                  <a href="{{ url_for('lande') }}">Menú adminstrador</a>
                 </li>
                 <li class="nav-item"><a href="{{ url_for('register_role') }}">Registro rol</a></li>
-                <li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
                 <li class="nav-item"><a class="active" href="{{ url_for('register_store') }}">Registro Bodega</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
+                <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
                 <li class="nav-item"><a href="{{ url_for('register_product') }}">Registro Producto</a></li>
+                <!--<li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li> -->
+                <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
               </ul>
             </div>
             <!-- navbar collapse -->
             <div class="button mx-0">
-              <!--<a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i
-                                  class="lni lni-lock-alt"></i> Iniciar sesión</a>-->
-              <a href="{{ url_for('signup') }}" data-toggle="modal" class="btn">Iniciar sesión</a>
+              <a href="{{ url_for('close_session') }}" data-toggle="modal" class="btn">Cerrar Sesión</a>
             </div>
           </nav>
           <!-- navbar -->
@@ -82,20 +81,19 @@
     <div class="cat-head">
       <div class="row">
         <div class="col-md-12 ">
-          <form class="form-horizontal" action='store' method="POST">
+          <form class="form-horizontal was-validated" action='store' method="POST">
             <fieldset>
               <div class="container"><br>
                 <div class="row align-items-center justify-content-center">
                   <div class="col-md-4">
-                    <div id="legend">
-                      <legend class="">Registro Bodega</legend>
-                    </div>
                     <div class="control-group">
                       <!-- name -->
                       <label class="control-label" for="number">Número</label>
                       <div class="controls form-group">
-                        <input type="text" id="number" name="number" placeholder="Número" class="input-xlarge">
-                        <p class="help-block">El número puede contener cualquier número, sin espacios</p>
+                        <input type="text" id="number" name="number" placeholder="Número" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                        <div class="invalid-feedback">El número puede contener cualquier número, sin espacios
+                        </div>
                       </div>
                     </div>
 
@@ -103,8 +101,10 @@
                       <!-- name -->
                       <label class="control-label" for="code">Código</label>
                       <div class="controls form-group">
-                        <input type="text" id="code" name="code" placeholder="Código" class="input-xlarge">
-                        <p class="help-block">El código puede contener cualquier letra o número, sin espacios</p>
+                        <input type="text" id="code" name="code" placeholder="Código" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                        <div class="invalid-feedback">El código puede contener cualquier letra o número, sin espacios
+                        </div>
                       </div>
                     </div>
 
@@ -114,11 +114,15 @@
                     <!-- Phone-->
                     <label class="control-label" for="square_id">Plaza</label>
                     <div class="controls form-group">
-                      <select name="square_id">
+                      <select name="square_id" required>
+                        <option value=""></option>
                         {% for square in squares %}
                         <option value="{{ square.id }}">{{ square.name }}</option>
                         {% endfor %}
                       </select>
+                      <div class="valid-feedback">Información valida</div>
+                        <div class="invalid-feedback">Debe seleccionar una opción para continuar
+                        </div>
                     </div>
                   </div>
                   {% endif %}

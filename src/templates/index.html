@@ -1,166 +1,256 @@
-<!DOCTYPE html>
-<html class="no-js" lang="es">
+<html class="no-js" lang="zxx">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Corapoyo</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="../static/assets/images/favicon.svg" />
-    <!-- Favicon.ico -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Inicio | CorAppBastos</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../static/assets/images/favicon.svg">
 
-    <!-- Web Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
         rel="stylesheet">
 
-    <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../static/assets/css/LineIcons.2.0.css" />
     <link rel="stylesheet" href="../static/assets/css/animate.css" />
     <link rel="stylesheet" href="../static/assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="../static/assets/css/glightbox.min.css" />
     <link rel="stylesheet" href="../static/assets/css/main.css" />
-
+    <link rel="stylesheet" href="../static/assets/css/custom.css" />
+    <style></style>
+    <style></style>
+    <style></style>
 </head>
 
 <body>
-    <!--[if lte IE 9]>
-      <p class="browserupgrade">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-        your experience and security.
-      </p>
-    <![endif]-->
 
-    <div id="loading-area"></div>
+    <div id="loading-area" style="opacity: 0; display: none;"></div>
 
-    <!-- Start Header Area -->
     <header class="header">
         <div class="navbar-area">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand logo" href="{{ url_for('index') }}">
-                                <img class="logo1" src="../static/assets/images/logo/logo.png" alt="Logo" />
+                            <a class="navbar-brand logo" href="#">
+                                <img class="logo1" src="../static/assets/images/logo/logo.png" alt="Logo">
                             </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                            </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ml-auto">
-                                  <li class="nav-item">
-                                    <a class="active" href="{{ url_for('index') }}">Menú selección</a>
-                                  </li>
-                                  <li class="nav-item"><a href="{{ url_for('register_role') }}">Registro rol</a></li>
-                                  <li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li>
-                                  <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
-                                  <li class="nav-item"><a href="{{ url_for('register_store') }}">Registro Bodega</a></li>
-                                  <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
-                                  <li class="nav-item"><a href="{{ url_for('register_product') }}">Registro Producto</a></li>
+                                    <li class="nav-item hidde"><a href="#">Menu</a>
+                                    </li>
                                 </ul>
                             </div>
-                            <!-- navbar collapse -->
-                            <div class="button mx-0">
-                                <!--<a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i
-                                        class="lni lni-lock-alt"></i> Iniciar sesión</a>-->
-                                <a href="{{ url_for('signup') }}" data-toggle="modal" class="btn">Iniciar sesión</a>
+                            <div class="button">
+                                <a href="{{ url_for('login') }}" class="login"><i class="lni lni-lock-alt"></i>
+                                    Login</a>
+                                <a href="{{ url_for('pre_register') }}" class="btn">Registrarse</a>
                             </div>
                         </nav>
-                        <!-- navbar -->
-                    </div>
-                </div>
-                <!-- row -->
-            </div>
-            <!-- container -->
-        </div>
-        <!-- navbar area -->
-    </header>
-    <!-- End Header Area -->
 
-    <!-- Start Apps Area -->
-    <section class="job-category section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title mt-5">
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s" style="text-transform: none;">Corapoyo</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".6s">Los formularios se deben responder de manera consecutiva, ya están organizados por orden de izquierda a derecha, por favor seleccione uno para iniciar con la recolección de información, también lo puede seleccionar desde el menú de nevagación.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <section class="hero-area style2">
+
+        <div class="hero-inner">
+            <div class="tns-outer" id="tns3-ow">
+
+
+                <div id="tns3-mw" class="tns-ovh">
+                    <div class="tns-inner" id="tns3-iw">
+                        <div class="home-slider  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="tns3"
+                            style="transform: translate3d(-66.6667%, 0px, 0px);">
+                            <div class="single-slider tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
+                                <div class="container">
+                                    <div class="row ">
+                                        <div class="col-lg-6 co-12">
+                                            <div class="inner-content">
+                                                <div class="hero-text">
+                                                    <h1 class="wow fadeInUp" data-wow-delay=".3s"
+                                                        style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                                                        Lorem ipsum <br>dolor sit amet
+                                                        Lorem ipsum
+                                                    </h1>
+                                                    <p class="wow fadeInUp" data-wow-delay=".5s"
+                                                        style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+                                                        finibus dolor et fringilla ultrices.
+                                                        Proin gravida bibendum neque sit amet efficitur.
+                                                    </p>
+                                                    <div class="button wow fadeInUp" data-wow-delay=".7s"
+                                                        style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+                                                        <a href="{{ url_for('login') }}" class="btn">Publica ahora</a>
+                                                        <a href="{{ url_for('login') }}" class="btn btn-alt">Ver publicaciones</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 co-12">
+                                            <div class="hero-image wow fadeInRight" data-wow-delay=".4s"
+                                                style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInRight;">
+                                                <img src="../static/assets/images/resources/banner.png" alt="#">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="cat-head">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <a href="{{ url_for('register_role') }}" class="single-cat wow fadeInUp" data-wow-delay=".2s">
-                            <div class="icon">
-                                <i class="lni lni-cog"></i>
-                            </div>
-                            <h3>Registro<br> Rol</h3>
-                        </a>
+        </div>
+
+    </section>
+
+
+    <section class="call-action style2">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-8 col-12">
+                    <div class="text">
+                        <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <a href="{{ url_for('register') }}" class="single-cat wow fadeInUp" data-wow-delay=".4s">
-                            <div class="icon">
-                                <i class="lni lni-user"></i>
-                            </div>
-                            <h3>Registro<br> Asociado</h3>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <a href="{{ url_for('register_square') }}" class="single-cat wow fadeInUp" data-wow-delay=".6s">
-                            <div class="icon">
-                                <i class="lni lni-home"></i>
-                            </div>
-                            <h3>Registro<br> Plaza</h3>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <a href="{{ url_for('register_store') }}" class="single-cat wow fadeInUp" data-wow-delay=".2s">
-                            <div class="icon">
-                                <i class="lni lni-restaurant"></i>
-                            </div>
-                            <h3>Registro<br> Bodega</h3>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <a href="{{ url_for('register_place') }}" class="single-cat wow fadeInUp" data-wow-delay=".4s">
-                            <div class="icon">
-                                <i class="lni lni-map-marker"></i>
-                            </div>
-                            <h3>Registro<br> Puesto</h3>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <a href="{{ url_for('register_product') }}" class="single-cat wow fadeInUp" data-wow-delay=".6s">
-                            <div class="icon">
-                                <i class="lni lni-tag"></i>
-                            </div>
-                            <h3>Registro<br> Producto</h3>
-                        </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="button">
+                        <a href="{{ url_for('pre_register') }}" class="btn">Registrarse</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- /End Apps Area -->
 
-    <!-- Start Footer Area -->
+
+    <section class="about-us section">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-6 col-md-10 col-12">
+                    <div class="content-left wow fadeInLeft" data-wow-delay=".3s"
+                        style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
+                        <div calss="row">
+                            <div calss="col-lg-6 col-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-6">
+                                        <img class="single-img" src="../static/assets/images/" alt="#">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-6">
+                                        <img class="single-img mt-50" src="../static/assets/images/" alt="#">
+                                    </div>
+                                </div>
+                            </div>
+                            <div calss="col-lg-6 col-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-6">
+                                        <img class="single-img minus-margin" src="../static/assets/images/"
+                                            alt="#">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-6">
+
+                                        <div class="media-body">
+                                            <i class="lni lni-checkmark"></i>
+                                            <h6 class="">Lorem ipsum</h6>
+                                            <p class="">Lorem ipsum dolor sit amet ipsum
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-10 col-12">
+
+                    <div class="content-right wow fadeInRight" data-wow-delay=".5s"
+                        style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+
+                        <h2>Lorem ipsum dolor <br>
+                            sit amet ipsum ipsum</h2>
+
+
+                        <div class="single-list">
+                            <i class="lni lni-grid-alt"></i>
+
+                            <div class="list-bod">
+                                <h5>#1 Lorem ipsum dolor</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="single-list">
+                            <i class="lni lni-search"></i>
+
+                            <div class="list-bod">
+                                <h5>#2 Lorem ipsum dolor</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="single-list">
+                            <i class="lni lni-stats-up"></i>
+
+                            <div class="list-bod">
+                                <h5>#3 Lorem ipsum dolor</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
     <footer class="footer">
-        
-        <!-- Start Footer Bottom -->
+        <div class="footer-top">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-6 col-12">
+                        <div class="download-text">
+                            <h3>Descarga la aplicación en tu dispositivo</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do<br> eiusmod tempor
+                                incididunt ut labore et dolore</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="download-button">
+                            <div class="button">
+                                <a class="btn" href="#"><i class="lni lni-apple"></i> App Store</a>
+                                <a class="btn" href="#"><i class="lni lni-play-store"></i> Google Play</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="footer-bottom">
             <div class="container">
                 <div class="inner">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="left">
-                                <p>Desarrollador por<a href="https://tayronasolutions.com/" rel="nofollow" target="_blank">TayronaSolutions</a></p>
+                                <p>Desarrollador por<a href="https://tayronasolutions.com/" rel="nofollow"
+                                        target="_blank">TayronaSolutions</a></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12">
@@ -177,21 +267,50 @@
                 </div>
             </div>
         </div>
-        <!-- End Footer Middle -->
-    </footer>
-    <!--/ End Footer Area -->
 
-    <!-- ========================= scroll-top ========================= -->
-    <a href="#" class="scroll-top btn-hover">
+    </footer>
+
+
+    <a href="#" class="scroll-top btn-hover" style="display: none;">
         <i class="lni lni-chevron-up"></i>
     </a>
 
-    <!-- ========================= JS here ========================= -->
     <script src="../static/assets/js/bootstrap.min.js"></script>
     <script src="../static/assets/js/wow.min.js"></script>
     <script src="../static/assets/js/tiny-slider.js"></script>
     <script src="../static/assets/js/glightbox.min.js"></script>
     <script src="../static/assets/js/main.js"></script>
+    <script type="text/javascript">
+        //======== Home Slider
+        var slider = new tns({
+            container: '.home-slider',
+            slideBy: 'page',
+            autoplay: true,
+            autoplayButtonOutput: false,
+            mouseDrag: true,
+            gutter: 0,
+            items: 1,
+            nav: false,
+            controls: true,
+            controlsText: [
+                '<i class="lni lni-arrow-left prev"></i>',
+                '<i class="lni lni-arrow-right next"></i>'
+            ],
+            responsive: {
+                1200: {
+                    items: 1,
+                },
+                992: {
+                    items: 1,
+                },
+                0: {
+                    items: 1,
+                }
+
+            }
+        });
+    </script>
+
 </body>
 
 </html>

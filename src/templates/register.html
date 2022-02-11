@@ -4,7 +4,7 @@
 
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
-<title>Registro Asociado - Corapoyo</title>
+<title>Registro Asociado | CorAppBastos</title>
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="shortcut icon" type="image/x-icon" href="../static/assets/images/favicon.svg" />
@@ -22,8 +22,12 @@
 <link rel="stylesheet" href="../static/assets/css/glightbox.min.css" />
 <link rel="stylesheet" href="../static/assets/css/main.css" />
 <link rel="stylesheet" href="../static/assets/css/custom.css" />
+
+<script src="../static/assets/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
 {% block content %}
+
+<div id="loading-area" style="opacity: 0; display: none;"></div>
 <!-- Start Header Area -->
 <header class="header">
   <div class="navbar-area">
@@ -34,30 +38,16 @@
             <a class="navbar-brand logo" href="{{ url_for('index') }}">
               <img class="logo1" src="../static/assets/images/logo/logo.png" alt="Logo" />
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="toggler-icon"></span>
-              <span class="toggler-icon"></span>
-              <span class="toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               <ul id="nav" class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a href="{{ url_for('index') }}">Menú selección</a>
+                <li class="nav-item hidde"><a href="#">Menu</a>
                 </li>
-                <li class="nav-item"><a href="{{ url_for('register_role') }}">Registro rol</a></li>
-                <li class="nav-item"><a class="active" href="{{ url_for('register') }}">Registro Asociado</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_store') }}">Registro Bodega</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_product') }}">Registro Producto</a></li>
               </ul>
             </div>
-            <!-- navbar collapse -->
-            <div class="button mx-0">
-              <!--<a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i
-                                  class="lni lni-lock-alt"></i> Iniciar sesión</a>-->
-              <a href="{{ url_for('signup') }}" data-toggle="modal" class="btn">Iniciar sesión</a>
+            <div class="button">
+              <a href="{{ url_for('login') }}" class="login"><i class="lni lni-lock-alt"></i>
+                Login</a>
+              <a href="{{ url_for('pre_register') }}" class="btn">Registrarse</a>
             </div>
           </nav>
           <!-- navbar -->
@@ -76,35 +66,35 @@
     <div class="row">
       <div class="col-12">
         <div class="section-title mt-5 mb-5">
-          <h2 class="wow fadeInUp" data-wow-delay=".4s" style="text-transform: none;">Registrar Asociado</h2>
+          <h2 class="wow fadeInUp" data-wow-delay=".4s" style="text-transform: none;">Registro Asociado</h2>
         </div>
       </div>
     </div>
     <div class="cat-head">
       <div class="row">
         <div class="col-md-12 ">
-          <form class="form-horizontal" action='partner' method="POST">
+          <form class="form-horizontal was-validated" action='partner' method="POST">
             <fieldset>
               <div class="container"><br>
                 <div class="row align-items-center justify-content-center">
                   <div class="col-md-4">
                     <div class="control-group">
                       <!-- name -->
-                      <label class="control-label" for="name">Nombre</label>
+                      <label class="control-label" for="name">Nombres</label>
                       <div class="controls form-group">
-                        <input type="text" id="name" name="name" placeholder="Nombre" class="input-xlarge">
-                        <p class="help-block">El nombre de usuario puede contener cualquier letra o número, sin espacios
-                        </p>
+                        <input type="text" id="name" name="name" placeholder="Nombre" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                          <div class="invalid-feedback">Ingrese sus nombres completo</div>
                       </div>
                     </div>
 
                     <div class="control-group">
                       <!-- last_name -->
-                      <label class="control-label" for="last_name">Apellido</label>
+                      <label class="control-label" for="last_name">Apellidos</label>
                       <div class="controls form-group">
-                        <input type="text" id="last_name" name="last_name" placeholder="Apellido" class="input-xlarge">
-                        <p class="help-block">El nombre de usuario puede contener cualquier letra o número, sin espacios
-                        </p>
+                        <input type="text" id="last_name" name="last_name" placeholder="Apellido" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                          <div class="invalid-feedback">Ingrese sus apellidos completos</div>
                       </div>
                     </div>
 
@@ -112,9 +102,10 @@
                       <!-- E-mail -->
                       <label class="control-label" for="email">Correo electrónico</label>
                       <div class="controls form-group">
-                        <input type="text" id="email" name="email" placeholder="Correo electrónico"
-                          class="input-xlarge">
-                        <p class="help-block">Indique su dirección de correo electrónico</p>
+                        <input type="email" id="email" name="email" placeholder="Correo electrónico"
+                          class="input-xlarge" required>
+                          <div class="valid-feedback">Información valida</div>
+                          <div class="invalid-feedback">Indique su dirección de correo electrónico</div>
                       </div>
                     </div>
 
@@ -122,9 +113,9 @@
                       <!-- username -->
                       <label class="control-label" for="username">Usuario</label>
                       <div class="controls form-group">
-                        <input type="text" id="username" name="username" placeholder="Usuario" class="input-xlarge">
-                        <p class="help-block">El nombre de usuario puede contener cualquier letra o número, sin espacios
-                        </p>
+                        <input type="text" id="username" name="username" placeholder="Usuario" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                          <div class="invalid-feedback">El nombre de usuario puede contener cualquier letra o número, sin espacios</div>
                       </div>
                     </div>
 
@@ -133,8 +124,9 @@
                       <label class="control-label" for="password">Contraseña</label>
                       <div class="controls form-group">
                         <input type="password" id="password" name="password" placeholder="Contraseña"
-                          class="input-xlarge">
-                        <p class="help-block">La contraseña debe tener al menos 4 caracteres</p>
+                          class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                          <div class="invalid-feedback">La contraseña debe tener al menos 4 caracteres</div>
                       </div>
                     </div>
 
@@ -142,8 +134,9 @@
                       <!-- Phone-->
                       <label class="control-label" for="phone">Telefono</label>
                       <div class="controls form-group">
-                        <input type="text" id="phone" name="phone" placeholder="Telefono" class="input-xlarge">
-                        <p class="help-block">Número de teléfono celular</p>
+                        <input type="number" id="phone" name="phone" placeholder="Telefono" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                          <div class="invalid-feedback">Número de teléfono celular</div>
                       </div>
                     </div>
 
@@ -187,6 +180,7 @@
   </div>
   </div>
 </section>
+
 
 <!--<a href="{{ url_for('create_partner') }}">Creditos </a>-->
 

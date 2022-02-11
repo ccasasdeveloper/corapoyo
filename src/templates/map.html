@@ -1,11 +1,278 @@
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-{% block head %}
+{% extends "bootstrap/base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block head %}
 
-{{clustermap.js}}
-{% endblock %}
-{% block content %}
-{{clustermap.html}}
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>Ver detalles | CorAppBastos</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" type="image/x-icon" href="../static/assets/images/favicon.svg" />
+<!-- Favicon.ico -->
 
-  <!--<a href="{{ url_for('create_partner') }}">Creditos </a>-->
-{% endblock %}
+<!-- Web Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+  rel="stylesheet">
+
+<!-- ========================= CSS here ========================= -->
+<link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../static/assets/css/LineIcons.2.0.css" />
+<link rel="stylesheet" href="../static/assets/css/animate.css" />
+<link rel="stylesheet" href="../static/assets/css/tiny-slider.css" />
+<link rel="stylesheet" href="../static/assets/css/glightbox.min.css" />
+<link rel="stylesheet" href="../static/assets/css/main.css" />
+<link rel="stylesheet" href="../static/assets/css/custom.css" /> {% endblock %} {% block content %}
+
+<!-- Start Header Area -->
+<header class="header">
+  <div class="navbar-area">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12">
+          <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand logo" href="{{ url_for('index') }}">
+              <img class="logo1" src="../static/assets/images/logo/logo.png" alt="Logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="toggler-icon"></span>
+              <span class="toggler-icon"></span>
+              <span class="toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+              <ul id="nav" class="navbar-nav ml-auto">
+                {% if role.name == 'Administrador' or role.name == 'Superadministrador' %}
+                <li class="nav-item">
+                  <a href="{{ url_for('lande') }}">Menú adminstrador</a>
+                </li>
+                {% endif %}
+                <li class="nav-item hidde">
+                  <a href="{{ url_for('lande') }}">Menú</a>
+                </li>
+              </ul>
+            </div>
+            <!-- navbar collapse -->
+            <div class="button mx-0">
+              <!--<a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i
+                                    class="lni lni-lock-alt"></i> Iniciar sesión</a>-->
+              <a href="{{ url_for('close_session') }}" data-toggle="modal" class="btn">Cerrar Sesión</a>
+            </div>
+          </nav>
+          <!-- navbar -->
+        </div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- navbar area -->
+</header>
+<!-- End Header Area -->
+
+
+<!-- Content -->
+<div id="loading-area"></div>
+
+<div class="breadcrumbs overlay">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="breadcrumbs-content">
+          <h1 class="page-title">Publicación | {{ product }}</h1>
+          <p>En esta sección podrá revisar los detalles de la publicación y conectar con el vendedor para concretar una
+            posible compra.</p>
+        </div>
+        <ul class="breadcrumb-nav">
+          <li><a href="#">Inicio</a></li>
+          <li>Ver detalles</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="job-details section">
+  <div class="container">
+    <div class="row mb-n5">
+
+      <div class="col-lg-8 col-12">
+        <div class="job-details-inner">
+          <div class="job-details-head row mx-0">
+            <div class="company-logo col-auto">
+              <a href="#" style="border-radius: 4px; overflow: hidden;"><img
+                  src="../static/assets/images/logo/logo_screen.png" alt="Company Logo"></a>
+            </div>
+            <div class="salary-type col-auto order-sm-3">
+              <span class="salary-range">$ {{ price }}</span>
+              <span class="badge badge-success">Precio</span>
+            </div>
+            <div class="content col">
+              <h5 class="title"><strong>Producto: </strong>{{ product }}</h5>
+              <ul class="meta">
+                <li><strong class="text-primary"><a href="#">{{ username }}</a></strong>
+                </li>
+                <li><i class="lni lni-map-marker"></i> Bogotá Colombia</li>
+              </ul>
+            </div>
+          </div>
+          <div class="job-details-body">
+            <h6 class="mb-3">Descripción</h6>
+            <p>{{ post }}</p>
+
+            <hr />
+
+            <div class="row">
+              <div class="col-md-12">
+                <h6 class="mb-3 mt-4">Ubicación del puesto</h6>
+                <div class="mapouter">
+                  <div class="gmap_canvas"><iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.78453764529!2d-74.15628738467419!3d4.632491243533743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9e82abb8b29b%3A0x1a01c282c5e690f7!2sCorabastos!5e0!3m2!1ses-419!2sco!4v1643994069418!5m2!1ses-419!2sco"
+                      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" frameborder="0"
+                      scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="#">Map</a>
+                    <style>
+                      .mapouter {
+                        position: relative;
+                        text-align: right;
+                        height: 300px;
+                        width: 100%;
+                      }
+
+                      .gmap_canvas {
+                        overflow: hidden;
+                        background: none !important;
+                        height: 300px;
+                        width: 100%;
+                      }
+                    </style><a href="https://maps-google.github.io/embed-google-map/">embed google
+                      map</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 display_n">
+                <h6 class="mb-3 mt-4">Cómo llegar</h6>
+                <div class="mapouter">
+                  <div class="gmap_canvas"><iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.78453764529!2d-74.15628738467419!3d4.632491243533743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9e82abb8b29b%3A0x1a01c282c5e690f7!2sCorabastos!5e0!3m2!1ses-419!2sco!4v1643994069418!5m2!1ses-419!2sco"
+                      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" frameborder="0"
+                      scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="#">Map</a>
+                    <style>
+                      .mapouter {
+                        position: relative;
+                        text-align: right;
+                        height: 300px;
+                        width: 100%;
+                      }
+
+                      .gmap_canvas {
+                        overflow: hidden;
+                        background: none !important;
+                        height: 300px;
+                        width: 100%;
+                      }
+                    </style><a href="https://maps-google.github.io/embed-google-map/">embed google
+                      map</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-4 col-12">
+        <div class="job-details-sidebar">
+
+          <div class="sidebar-widget">
+            <div class="inner">
+              <div class="row m-n2 button">
+                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-2">
+                  <a href="https://wa.me/{{ phone }}/?text=Hola,%20vi%20su%20oferta%20del%20producto%20{{ product }}%20%20en%20el%20portal%20de%20CorAppbastos,%20quisiera%20obtener%20más%20información,%20gracias."
+                    class="d-block btn btn-wp w-100" target="_blank"><i class="fa fa-heart-o mr-1"></i>
+                    Contactar <i class="lni lni-whatsapp"></i></a>
+                </div>
+                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-2">
+                  <a href="{{ url_for('create_post') }}" class="d-block btn btn-alt w-100">Regresar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="sidebar-widget">
+            <div class="inner">
+              <h6 class="text-nontrans title">Resumen de la publicación</h6>
+              <ul class="job-overview list-unstyled">
+                <li><strong>Publicado por:</strong> {{ username }}</li>
+                <li><strong>Fecha de publicación:</strong> {{ date }}</li>
+                <li><strong>Producto:</strong> {{ product }}</li>
+                <li><strong>Calidad del producto:</strong> {{ qualification }}</li>
+                <li><strong>Unidad de medida:</strong> {{ udm }}</li>
+                <li><strong>Número de puesto:</strong> {{ place }}</li>
+                <li><strong>Precio:</strong> {{ price }}</li>
+                <li><strong>Número de contacto:</strong> {{ phone }}</li>
+                <li><strong>Precio:</strong> {{ price }}</li>
+                <li><strong>Estado de publicación:</strong> Activa</li>
+              </ul>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<a href="#" class="scroll-top btn-hover">
+  <i class="lni lni-chevron-up"></i>
+</a>
+<!-- /Content -->
+
+<!-- Start Footer Area -->
+<footer class="footer">
+
+  <!-- Start Footer Bottom -->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="inner">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-12">
+            <div class="left">
+              <p>Desarrollador por<a href="https://tayronasolutions.com/" rel="nofollow"
+                  target="_blank">TayronaSolutions</a></p>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12">
+            <div class="right">
+              <ul>
+                <li><a href="#">Terminos de uso</a></li>
+                <li><a href="#">Politica de privacidad</a></li>
+                <li><a href="#">Habeas data</a></li>
+                <li><a href="#">Contacto</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Footer Middle -->
+</footer>
+<!--/ End Footer Area -->
+
+<!-- ========================= scroll-top ========================= -->
+<a href="#" class="scroll-top btn-hover">
+  <i class="lni lni-chevron-up"></i>
+</a>
+
+<!-- ========================= JS here ========================= -->
+<script src="../static/assets/js/bootstrap.min.js"></script>
+<script src="../static/assets/js/wow.min.js"></script>
+<script src="../static/assets/js/tiny-slider.js"></script>
+<script src="../static/assets/js/glightbox.min.js"></script>
+<script src="../static/assets/js/main.js"></script>
+{% endblock %} {% block srcipts %} {{ super() }} {% endblock %}

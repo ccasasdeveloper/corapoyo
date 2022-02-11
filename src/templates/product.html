@@ -4,7 +4,7 @@
 
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
-<title>Registro Producto - Corapoyo</title>
+<title>Registro Producto | CorAppBastos</title>
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="shortcut icon" type="image/x-icon" href="../static/assets/images/favicon.svg" />
@@ -42,21 +42,20 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               <ul id="nav" class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a href="{{ url_for('index') }}">Menú selección</a>
+                  <a href="{{ url_for('lande') }}">Menú adminstrador</a>
                 </li>
                 <li class="nav-item"><a href="{{ url_for('register_role') }}">Registro rol</a></li>
-                <li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li>
-                <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
                 <li class="nav-item"><a href="{{ url_for('register_store') }}">Registro Bodega</a></li>
+                <li class="nav-item"><a href="{{ url_for('register_square') }}">Registro Plaza</a></li>
+                <li class="nav-item"><a class="active" href="{{ url_for('register_product') }}">Registro Producto</a>
+                </li>
+                <!--<li class="nav-item"><a href="{{ url_for('register') }}">Registro Asociado</a></li> -->
                 <li class="nav-item"><a href="{{ url_for('register_place') }}">Registro Puesto</a></li>
-                <li class="nav-item"><a class="active"  href="{{ url_for('register_product') }}">Registro Producto</a></li>
               </ul>
             </div>
             <!-- navbar collapse -->
             <div class="button mx-0">
-              <!--<a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i
-                                  class="lni lni-lock-alt"></i> Iniciar sesión</a>-->
-              <a href="{{ url_for('signup') }}" data-toggle="modal" class="btn">Iniciar sesión</a>
+              <a href="{{ url_for('close_session') }}" data-toggle="modal" class="btn">Cerrar Sesión</a>
             </div>
           </nav>
           <!-- navbar -->
@@ -82,60 +81,66 @@
     <div class="cat-head">
       <div class="row">
         <div class="col-md-12 ">
-          <form class="form-horizontal" action='product' method="POST">
+          <form class="form-horizontal was-validated" action='product' method="POST">
             <fieldset>
-            <div class="container"><br>
-              <div class="row align-items-center justify-content-center">
-              <div class="col-md-4">
-                <div class="control-group">
-                  <!-- name -->
-                  <label class="control-label"  for="name">Nombre</label>
-                  <div class="controls form-group">
-                    <input type="text" id="name" name="name" placeholder="Nombre" class="input-xlarge">
-                    <p class="help-block">El nombre puede contener cualquier letra o número, sin espacios</p>
-                  </div>
-                </div>
-          
-                <div class="control-group">
-                  <!-- name -->
-                  <label class="control-label"  for="code">Código</label>
-                  <div class="controls form-group">
-                    <input type="text" id="code" name="code" placeholder="Código" class="input-xlarge">
-                    <p class="help-block">El código puede contener cualquier letra o número, sin espacios</p>
-                  </div>
-                </div>
-          
-                <div class="control-group">
-                  <!-- name -->
-                  <label class="control-label"  for="price">Precio</label>
-                  <div class="controls form-group">
-                    <input type="number" id="price" name="price" placeholder="Precio" class="input-xlarge" >
-                    <p class="help-block">El código puede contener cualquier letra o número, sin espacios</p>
-                  </div>
-                </div>
-          
-                </div>
-            </div>
-            
-                  <br>													   
-          
-                  <center>
+              <div class="container"><br>
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-md-4">
                     <div class="control-group">
-                  <!-- Button -->
-                  <div class="controls form-group button">
-                    <button type="submit" class="btn ">Registrar</button>
+                      <!-- name -->
+                      <label class="control-label" for="name">Nombre</label>
+                      <div class="controls form-group">
+                        <input type="text" id="name" name="name" placeholder="Nombre" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                        <div class="invalid-feedback">El nombre puede contener cualquier letra o número, sin espacios
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <!-- name -->
+                      <label class="control-label" for="code">Código</label>
+                      <div class="controls form-group">
+                        <input type="text" id="code" name="code" placeholder="Código" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                        <div class="invalid-feedback">El código puede contener cualquier letra o número, sin espacios
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <!-- name -->
+                      <label class="control-label" for="price">Precio</label>
+                      <div class="controls form-group">
+                        <input type="number" id="price" name="price" placeholder="Precio" class="input-xlarge" required>
+                        <div class="valid-feedback">Información valida</div>
+                        <div class="invalid-feedback">El código puede contener cualquier letra o número, sin espacios
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
-                  </center>
-          
+                </div>
+
                 <br>
-                  
+
+                <center>
+                  <div class="control-group">
+                    <!-- Button -->
+                    <div class="controls form-group button">
+                      <button type="submit" class="btn ">Registrar</button>
+                    </div>
+                </center>
+
+                <br>
+
               </div>
               <br>
-              </div>
-              </div>
-            </fieldset>
-          
-          </form>
+        </div>
+      </div>
+      </fieldset>
+
+      </form>
     </div>
   </div>
   </div>
@@ -186,4 +191,3 @@
 <script src="../static/assets/js/glightbox.min.js"></script>
 <script src="../static/assets/js/main.js"></script>
 {% endblock %}
-
