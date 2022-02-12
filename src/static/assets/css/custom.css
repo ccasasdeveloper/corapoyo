@@ -172,6 +172,15 @@ Index
     background-color: #CFD85C;
     color: black !important;
 }
+
+#btn-rp{
+    background-color: #CFD85C !important;
+    color: black !important;
+}
+#btn-rp:hover {
+    background-color: #FF4D91 !important;
+    color: white !important;
+}
 .call-action.style2 {
     background-color: #ff7f4e;
 }
@@ -209,6 +218,58 @@ Index
 .scroll-top:hover {
     background-color: #FF4D91;
 }
+
+.hero-area.style4::before {
+    background-color: #ffb091db;
+}
+
+.hero-area.style4 .hero-inner .hero-text h1 {
+    color: #000;
+}
+
+.hero-area.style4 .hero-inner .hero-text p {
+    color: #000;
+}
+
+.breadcrumbs.overlay::before {
+    background-color: #ff7f4e;
+}
+
+.dashbord-sidebar ul li a.active {
+    background-color: #ff7f4e;
+}
+
+.dashbord-sidebar ul li a:hover {
+    background-color: #FF4D91;
+}
+
+.resume .inner-content .single-section.skill ul li a:hover {
+    background-color: #ff7f4e;
+}
+
+.resume .inner-content .social li a:hover {
+    background-color: #ff7f4e;
+}
+
+.pagination .pagination-list li.active a, .pagination .pagination-list li:hover a {
+    background: #ff7f4e;
+    color: #fff;
+    border-color: transparent;
+}
+
+.navbar-toggler {
+    padding: 0;
+    background-color: #ff7f4e;
+}
+
+.navbar-nav .nav-item a.active {
+    color: #ff7f4e;
+}
+
+.navbar-nav .nav-item a:hover {
+    color: #ff7f4e;
+}
+
 
 /*
 Responsive

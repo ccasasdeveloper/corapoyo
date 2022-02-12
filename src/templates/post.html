@@ -31,6 +31,7 @@
                         <a class="navbar-brand logo" href="{{ url_for('index') }}">
                             <img class="logo1" src="../static/assets/images/logo/logo.png" alt="Logo" />
                         </a>
+                        {% if role.name == 'Administrador' or role.name == 'Superadministrador' %}
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +39,7 @@
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
                         </button>
+                        {% endif %}
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ml-auto">
                                 {% if role.name == 'Administrador' or role.name == 'Superadministrador' %}
@@ -129,6 +131,36 @@
                 </div>
 
                 <div class="col-lg-8 col-12">
+
+                    <div class="job-items">
+                        <div class="container">
+                            <div>
+                                <div class="col-12 row">
+                                    <div class="button mx-0 col-md-6">
+                                        <a href="{{ url_for('post_p') }}" class="btn w-100">Menor a mayor</a>
+                                    </div>
+                                    <div class="button mx-0 col-md-6">
+                                        <a href="{{ url_for('post_pmy') }}" class="btn w-100">Mayor a menor</a>
+                                    </div>
+                                    <div class="button col-md-12">
+                                        <hr>
+                                        <form action="post_name" method=POST class="row">
+                                            <div class="col-md-6 form-group">
+                                                <select name="product_name">
+                                                    {% for product in products %}
+                                                    <option value="{{ product.name }}">{{ product.name }}</option>
+                                                    {% endfor %}
+                                                </select><br>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="submit" class="btn w-100" value="Filtrar por producto">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="job-items">
 
