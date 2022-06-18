@@ -241,6 +241,15 @@ def map():
         price = form['price']
         udm = form['udm']
         place = form['place']
+        place_id = form['place_id']
+        if place_id:
+            statement_two = select(Place).filter_by(id=place_id)
+            places = session.execute(statement_two).scalars().all()
+            t_place = places[0]
+            statement_three = select(Partner).filter_by(id=t_place.partner_id)
+            partners = session.execute(statement_three).scalars().all()
+            t_partner = partners[0]
+            phone = t_partner.phone
     return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username, email=email, password=password, product=product, qualification=qualification, price=price, udm=udm, place=place, phone=phone)
 
 #Here add routers to forms   
