@@ -363,20 +363,20 @@ def register_role():
 
 @app.route("/post")
 def register_post():
-    print('hello hello')
+    print('hello hello -1')
     #json_object.append(jsonify(rol))
     #print(json_object)
     products = get_products()
     places = get_places()
     udms = db.session.query(Udm).all()
     qualifications = db.session.query(ProductQualificationOffer).all()
-    statement_three = select(Post).filter_by(cut_date_added=str(ses['date']))
+    if ses['role'] == "Beneficiario":
+        statement_three = select(Post).filter_by(cut_date_added=str(ses['date']), donation=True)
+    else:
+        statement_three = select(Post).filter_by(cut_date_added=str(ses['date']), donation=False)
     posts = session.execute(statement_three).scalars().all()
     email = ses['email']
     password = ses['password']
-    print(type(posts))
-    print(posts)
-    print('this is test to Charlie')
     username = ses['username']
     date = ses['date']
     role = ses['role']
@@ -390,7 +390,7 @@ def register_post():
 
 @app.route("/post_p")
 def post_p():
-    print('hello hello')
+    print('hello hello 0')
     #json_object.append(jsonify(rol))
     #print(json_object)
     products = get_products()
@@ -427,7 +427,7 @@ def post_p():
 
 @app.route("/post_pmy")
 def post_pmy():
-    print('hello hello')
+    print('hello hello 1')
     #json_object.append(jsonify(rol))
     #print(json_object)
     products = get_products()
@@ -549,7 +549,7 @@ def create_partner():
     if role.code == 'VEN':
         return "<SCRIPT> alert('Registro exitoso'); window.location='/place';  </SCRIPT>"
     else:
-        return "<SCRIPT> alert('Registro exitoso'); window.location='/signup';  </SCRIPT>"
+        return "<SCRIPT> alert('Registro exitoso'); window.location='/login';  </SCRIPT>"
 
 @app.route("/partner/<id>", methods=['GET'])
 def get_partner(id):
@@ -820,6 +820,8 @@ def create_post():
         print('It is passing for here 4')
         product_object = db.session.query(Product).get(form['product_id'])
         print('It is passing for here 5')
+        print(form['donation'])
+        print(eval(form['donation']))
         post = Post(
         post=str(form['post']),
         date_added=str(date_now),
@@ -834,7 +836,8 @@ def create_post():
         place_longitude =place_object.longitude,
         product_name = product_object.name,
         udm_id = int(form['udm_id']),
-        product_qualification_id = int(form['product_qualification_id'])
+        product_qualification_id = int(form['product_qualification_id']),
+        donation = eval(form['donation'])
     )
     print('for here 2')
     db.session.add(post)
