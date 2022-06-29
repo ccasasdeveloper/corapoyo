@@ -162,7 +162,7 @@
                           <div class="form-group">
                             <label for="price">Precio</label>
                             <input class="form-control" type="number" id="price" name="price"
-                              placeholder="Ingrese precio" name="title" required>
+                              placeholder="Ingrese precio" name="title">
                               <div class="valid-feedback">Información valida</div>
                           <div class="invalid-feedback">Este campo solo puede contener números, sin espacios</div>
                           </div>
@@ -216,7 +216,7 @@
                         <div class="col-lg-6 col-md-6">
                           <div class="form-group">
                             <label for="product_qualification_id">Estado del producto</label>
-                            <select class="select" name="product_qualification_id" required>
+                            <select class="select" name="product_qualification_id">
                               <option value=""></option>
                               {% for product_qualification_offer in product_qualification_offers %}
                               <option value="{{ product_qualification_offer.id }}">{{ product_qualification_offer.name
@@ -245,10 +245,7 @@
                 </div>
               </div>
             </div>
-
           </div>
-
-
         </div>
       </div>
     </div>
