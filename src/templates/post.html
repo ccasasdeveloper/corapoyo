@@ -131,7 +131,7 @@
                 </div>
 
                 <div class="col-lg-8 col-12">
-
+                    {% if role != "Beneficiario" %}
                     <div class="job-items">
                         <div class="container">
                             <div>
@@ -161,6 +161,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
 
                     <div class="job-items">
 
@@ -177,7 +178,11 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-12 time">
                                     <p><span><b>Unidad de medida: </b>{{ post.udm_name }}</span></p>
-                                    <p><span><b>Precio del producto: </b>{{ post.price }}</span></p>
+                                    {% if post.donation == False %}
+                                        <p><span><b>Precio del producto: </b>{{ post.price }}</span></p>
+                                    {% else %}
+                                        <p><span><b>Este producto es gratis! </b></span></p>
+                                    {% endif %}
                                     <p><span><b>Calidad del producto: </b>{{ post.product_qualification_name }}</span>
                                     </p>
                                     <p><span><b>Calificación del puesto: </b><i class="lni lni-star-filled"></i><i

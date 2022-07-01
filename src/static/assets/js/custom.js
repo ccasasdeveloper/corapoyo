@@ -9,3 +9,9 @@ function ven() {
     document.getElementById("role").value = "VEN";
     document.getElementById('frmPreReg').submit();
 }
+
+function benf() {
+
+    document.getElementById("role").value = "BENF";
+    document.getElementById('frmPreReg').submit();
+}

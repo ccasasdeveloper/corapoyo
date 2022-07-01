@@ -104,7 +104,11 @@
                   src="../static/assets/images/logo/logo_screen.png" alt="Company Logo"></a>
             </div>
             <div class="salary-type col-auto order-sm-3">
+              {% if role != "Beneficiario" %}
               <span class="salary-range">$ {{ price }}</span>
+              {% else %}
+              <h6>Este producto es gratis</h6>
+              {% endif %}
               <span class="badge badge-success">Precio</span>
             </div>
             <div class="content col">
