@@ -1,3 +1,4 @@
+import os
 from sqlalchemy.orm import session 
 from sqlalchemy.orm import Session
 from sqlalchemy import select
@@ -15,18 +16,29 @@ import bigdatacloudapi
 import json 
 import requests
 from sqlalchemy import create_engine
+from werkzeug.utils import secure_filename
 
-
+UPLOAD_FOLDER = './static/photos'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 engine = create_engine('postgresql://postgres:123456@localhost:5432/corapoyodb')
 session = Session(engine, future=True)
 app.secret_key = '123456'
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:123456@localhost:5432/corapoyodb"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 Bootstrap(app)
 
-
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_file():
+   if request.method == 'POST':
+      f = request.files['file']
+      print(f)
+      filename = f.filename
+      print(filename)
+      f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+      return 'file uploaded successfully'
 
 
 @app.route("/lande")
@@ -204,10 +216,22 @@ def publish():
         posts = session.execute(statement_three).scalars().all()
         products = get_products()
         role_name = role.name
+        #here
+        if places:
+            print('this is the store')
+            print(places[0].store_id)
+            statement_four = select(Store).filter_by(id=str(places[0].store_id))
+            stores = session.execute(statement_four).scalars().all()
+            print(stores[0])
+            if stores:
+                store = stores[0]
+                print('this is the store')
+                print(store.number)
+                ses['store'] = store.number
     username = ses['username']
     #role = ses['role']
     date = ses['date']
-    return render_template('publish.html', role=role, date=date, username=username, places=places, udms=udms, product_qualification_offers=product_qualification_offers, posts=posts, products=products, email=email, password=password, role_name=role_name)
+    return render_template('publish.html', role=role, date=date, username=username, places=places, udms=udms, product_qualification_offers=product_qualification_offers, posts=posts, products=products, email=email, password=password, role_name=role_name, store=store)
 
 
 
@@ -222,6 +246,7 @@ def map():
     email =  ses['email']
     password = ses['password']
     phone = ses['phone']
+    store = ses['store']
     print('hereeeeeeeeeeeeeeeeeeeeeeeee')
     print(email)
     print(password)
@@ -250,7 +275,7 @@ def map():
             partners = session.execute(statement_three).scalars().all()
             t_partner = partners[0]
             phone = t_partner.phone
-    return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username, email=email, password=password, product=product, qualification=qualification, price=price, udm=udm, place=place, phone=phone)
+    return render_template('map.html', latitude=latitude, longitude=longitude, post=post, role=role, date=date, username=username, email=email, password=password, product=product, qualification=qualification, price=price, udm=udm, place=place, phone=phone, store=store)
 
 #Here add routers to forms   
 #Here register routes starts
@@ -380,13 +405,16 @@ def register_post():
     username = ses['username']
     date = ses['date']
     role = ses['role']
+    store = ses['store']
     print(ses['username'])
     print(ses['date'])
     print(ses['role'])
+    print(ses['foto'])
+    foto =  str(ses['foto'])
     partner = db.session.query(Partner).get(int(ses['partner_id']))
     #role = db.session.query(Role).get(int(partner.role_id))
     print('post post post')
-    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date)
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date, store=store, foto=foto)
 
 @app.route("/post_p")
 def post_p():
@@ -419,10 +447,12 @@ def post_p():
     print(ses['username'])
     print(ses['date'])
     print(ses['role'])
+    store = ses['store']
+    foto = ses['foto']
     partner = db.session.query(Partner).get(int(ses['partner_id']))
     #role = db.session.query(Role).get(int(partner.role_id))
     print('post post post')
-    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date)
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date, store=store, foto=foto)
 
 
 @app.route("/post_pmy")
@@ -448,13 +478,15 @@ def post_pmy():
     username = ses['username']
     date = ses['date']
     role = ses['role']
+    store = ses['store']
+    foto = ses['foto']
     print(ses['username'])
     print(ses['date'])
     print(ses['role'])
     partner = db.session.query(Partner).get(int(ses['partner_id']))
     #role = db.session.query(Role).get(int(partner.role_id))
     print('post post post')
-    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date)
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date, store=store, foto=foto)
 
 @app.route("/post_name", methods=['POST'])
 def post_name():
@@ -485,13 +517,15 @@ def post_name():
     username = ses['username']
     date = ses['date']
     role = ses['role']
+    store = ses['store']
+    foto = ses['foto']
     print(ses['username'])
     print(ses['date'])
     print(ses['role'])
     partner = db.session.query(Partner).get(int(ses['partner_id']))
     #role = db.session.query(Role).get(int(partner.role_id))
     print('post post post')
-    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date)
+    return render_template('post.html', products=products, places=places, udms=udms, qualifications=qualifications, posts=posts, email=email, password=password,role=role, username=username, date=date, store=store, foto=foto)
 
 #Here register finished
 
@@ -819,9 +853,25 @@ def create_post():
         place_object = db.session.query(Place).get(form['place_id'])
         print('It is passing for here 4')
         product_object = db.session.query(Product).get(form['product_id'])
+        all_posts = db.session.query(Post).all()
+        number_photo = len(all_posts)
         print('It is passing for here 5')
         print(form['donation'])
         print(eval(form['donation']))
+        filename = ' '
+        print('yes')
+        if request.files['file']:
+            print('yes 2')
+            f = request.files['file']
+            print(f)
+            filename = f.filename.split(".")
+            print(filename)
+            filename = filename[0] + str(number_photo + 1) + "."+ filename[1]
+            filename = ''.join(filename)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filename = 'photos/' +filename
+            print(filename)
+            ses['foto'] = filename
         post = Post(
         post=str(form['post']),
         date_added=str(date_now),
@@ -837,7 +887,8 @@ def create_post():
         product_name = product_object.name,
         udm_id = int(form['udm_id']),
         product_qualification_id = int(form['product_qualification_id']),
-        donation = eval(form['donation'])
+        donation = eval(form['donation']),
+        photo = filename
     )
     print('for here 2')
     db.session.add(post)

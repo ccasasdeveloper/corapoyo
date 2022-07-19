@@ -1,6 +1,6 @@
 import db
 import datetime
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table, DateTime, Boolean, LargeBinary
 from sqlalchemy.orm import relationship
 from flask_migrate import Migrate
 from flask import Flask
@@ -87,6 +87,7 @@ class Post(db.Base):
     udm_id = Column(Integer, ForeignKey('udm.id'))
     product_qualification_id =  Column(Integer, ForeignKey('product_qualification_offer.id'))
     donation = Column(Boolean, nullable=True)
+    photo = Column(String, nullable=True)
 
  
     """def __init__(self, nombre, precio):

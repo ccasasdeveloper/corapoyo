@@ -135,7 +135,7 @@
                 <div class="job-information">
                   <h4 class="title">Crear publicación</h4>
                   <br>
-                  <form action='post' class="was-validated" method="POST">
+                  <form action='post' class="was-validated" method="POST" enctype = "multipart/form-data">
                     <fieldset>
                       <div class="row mt-1">
 
@@ -167,6 +167,17 @@
                           <div class="invalid-feedback">Este campo solo puede contener números, sin espacios</div>
                           </div>
                         </div>
+                        <!--Foto-->
+                        <div class="col-lg-6 col-md-6">
+                          <div class="form-group">
+                            <label for="file">Foto</label>
+                            <input class="form-control" type="file" id="file" name="file"
+                              placeholder="Ingrese foto" name="file">
+                              <div class="valid-feedback">Información valida</div>
+                          <div class="invalid-feedback">Este campo solo puede contener números, sin espacios</div>
+                          </div>
+                        </div>
+                        <!--Foto-->
                         {% if places %}
                         <div class="col-lg-6 col-md-6">
                           <div class="form-group">
@@ -251,7 +262,11 @@
     </div>
   </div>
 </div>
-
+<form action = "http://localhost:5000/uploader" method = "POST" 
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" />
+         <input type = "submit"/>
+      </form>
 
 <a href="#" class="scroll-top btn-hover">
   <i class="lni lni-chevron-up"></i>

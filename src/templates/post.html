@@ -92,7 +92,6 @@
     </div>
 </div>
 
-
 <div class="bookmarked section">
     <div class="container">
         <div class="alerts-inner">
@@ -170,10 +169,18 @@
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="title-img">
+                                        {% if post.photo != ' ' or  post.photo !=  False %}
+                                        <div class="can-img">
+                                            <img src="{{ url_for('static', filename=foto ) }}" >
+                                        </div>
+                                        {% else %}
                                         <div class="can-img">
                                             <img src="../static/assets/images/logo/logo_screen.png" alt="#">
                                         </div>
-                                        <h3>{{ post.product_name }} <span>Puesto: {{ post.place_name }}</span></h3>
+                                        {% endif %}
+                                        <h3>{{ post.product_name }} <span> 
+                                            Bodega: {{ store }} </span>
+                                             <span>Puesto: {{ post.place_name }}</span></h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-12 time">
@@ -211,7 +218,7 @@
                                             value="{{ post.udm_name }}">
                                         <input type="text" class="display_n" id="place" name="place"
                                             value="{{ post.place_name }}">
-					<input type="text" class="display_n" id="place_id" name="place_id"
+					                    <input type="text" class="display_n" id="place_id" name="place_id"
                                             value="{{ post.place_id }}">
                                         <div class="button">
                                             <input type="submit" class="btn" value="Ver mapa">
@@ -240,7 +247,6 @@
         </div>
     </div>
 </div>
-
 
 <a href="#" class="scroll-top btn-hover">
     <i class="lni lni-chevron-up"></i>
