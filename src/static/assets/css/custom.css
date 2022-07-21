@@ -270,6 +270,9 @@ Index
     color: #ff7f4e;
 }
 
+.bookmarked .job-items .manage-content .can-img img {
+    width: 100px;
+}
 
 /*
 Responsive

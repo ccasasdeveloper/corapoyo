@@ -162,7 +162,7 @@
                           <div class="form-group">
                             <label for="price">Precio</label>
                             <input class="form-control" type="number" id="price" name="price"
-                              placeholder="Ingrese precio" name="title" required>
+                              placeholder="Ingrese precio" name="title">
                               <div class="valid-feedback">Información valida</div>
                           <div class="invalid-feedback">Este campo solo puede contener números, sin espacios</div>
                           </div>
@@ -201,7 +201,7 @@
                         <div class="col-lg-6 col-md-6">
                           <div class="form-group">
                             <label for="udm_id">Unidad de medida del producto</label>
-                            <select class="select" name="udm_id" required>
+                            <select class="select" name="udm_id">
                               <option value=""></option>
                               {% for udm in udms %}
                               <option value="{{ udm.id }}">{{ udm.name }}</option>
